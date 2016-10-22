@@ -1,0 +1,22 @@
+nav.nav
+	.row.p-a-1.text-xs-center
+		.btn-group
+			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['upload'] } }]") Add local image
+			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['draw'] } }]") Draw image
+			a.btn.btn-primary(href='#') Add Text
+base-cmp(
+	'*ngIf'='base',
+	'[base]'='base',
+	'(click)'='clearActive($event)',
+	'(mousemove)'='transform($event)',
+	'(mouseup)'='clearFlags()'
+)
+	layer-cmp(
+		'*ngFor'='let layer of layers',
+		'[layer]'='layer',
+		'(mousedown)'='setActive(layer)',
+		'(onResizeFlagChange)'='resizing = $event',
+		'(onDragFlagChange)'='dragging = $event',
+		'[active]'='active === layer'
+	)
+

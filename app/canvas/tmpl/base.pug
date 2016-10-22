@@ -1,0 +1,17 @@
+.base-wrapper.container(
+		'[style.height.px]'='base.height',
+		'[style.width.px]'='base.width'
+	)
+
+	img(
+		'[src]'='base.src',
+		'(dragstart)'='$event.preventDefault()'
+	)
+
+	.base-canvas.fn-base-canvas(
+		'[style.height.px]'='base.canvasHeight',
+		'[style.width.px]'='base.canvasWidth',
+		'[style.top.px]'='base.canvasY',
+		'[style.left.px]'='base.canvasX'
+	)
+		ng-content

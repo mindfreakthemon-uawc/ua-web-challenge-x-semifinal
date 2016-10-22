@@ -1,0 +1,37 @@
+.layer-wrapper(
+	'[style.height.px]'='layer.height',
+	'[style.width.px]'='layer.width',
+	'[style.top.px]'='layer.startY',
+	'[style.left.px]'='layer.startX',
+
+	'[class.selected]'='active',
+)
+	img(
+		'[src]'='layer.src',
+		'(dragstart)'='$event.preventDefault()',
+		'(mousedown)'='onDragFlagChange.emit(true)'
+	)
+	span.control-top-left(
+		'(mousedown)'='onResizeFlagChange.emit("top-left")'
+	)
+	span.control-top-right(
+		'(mousedown)'='onResizeFlagChange.emit("top-right")'
+	)
+	span.control-middle-top(
+		'(mousedown)'='onResizeFlagChange.emit("middle-top")'
+	)
+	span.control-middle-left(
+		'(mousedown)'='onResizeFlagChange.emit("middle-left")'
+	)
+	span.control-middle-right(
+		'(mousedown)'='onResizeFlagChange.emit("middle-right")'
+	)
+	span.control-middle-bottom(
+		'(mousedown)'='onResizeFlagChange.emit("middle-bottom")'
+	)
+	span.control-bottom-left(
+		'(mousedown)'='onResizeFlagChange.emit("bottom-left")'
+	)
+	span.control-bottom-right(
+		'(mousedown)'='onResizeFlagChange.emit("bottom-right")'
+	)

@@ -1,0 +1,77 @@
+.layer-wrapper {
+	position: absolute;
+	user-select: none;
+	cursor: move;
+
+	&.selected {
+		outline: 1px dashed #000;
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+	}
+}
+
+$control-size = 20px
+$control-half-size = 10px
+
+.control-top-left,
+.control-top-right,
+.control-middle-top,
+.control-middle-left,
+.control-middle-right,
+.control-middle-bottom,
+.control-bottom-left,
+.control-bottom-right {
+	display: none;
+	width: $control-size;
+	height: $control-size;
+	background: rgba(0, 0, 0, .5);
+	border-radius: 50%;
+	position: absolute;
+
+	.layer-wrapper.selected & {
+		display: block;
+	}
+}
+
+.control-top-left {
+	top: - $control-half-size;
+	left: - $control-half-size;
+}
+
+.control-top-right {
+	top: - $control-half-size;
+	right: - $control-half-size;
+}
+
+.control-middle-top {
+	top: - $control-half-size;
+	left: 'calc(50% - %s)' % $control-half-size;
+}
+
+.control-middle-left {
+	top: 'calc(50% - %s)' % $control-half-size;
+	left: - $control-half-size;
+}
+
+.control-middle-right {
+	top: 'calc(50% - %s)' % $control-half-size;
+	right: - $control-half-size;
+}
+
+.control-middle-bottom {
+	bottom: - $control-half-size;
+	left: 'calc(50% - %s)' % $control-half-size;
+}
+
+.control-bottom-left {
+	bottom: - $control-half-size;
+	left: - $control-half-size;
+}
+
+.control-bottom-right {
+	bottom: - $control-half-size;
+	right: - $control-half-size;
+}
