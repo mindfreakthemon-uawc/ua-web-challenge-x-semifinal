@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { LayerService } from '../canvas/services/layer.service';
 import { LayerModel } from '../canvas/models/layer.model';
 import { DomSanitizer } from '@angular/platform-browser';
+import { BaseService } from '../canvas/services/base.service';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'uploader-cmp',
@@ -10,6 +12,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class UploaderComponent {
 	constructor(public layerService: LayerService,
+	            public baseService: BaseService,
+	            private router: Router,
 	            private sanitizer: DomSanitizer) {}
 
 	handleFileSelect(event: Event) {
@@ -21,13 +25,23 @@ export class UploaderComponent {
 		image.addEventListener('load', () => {
 			URL.revokeObjectURL(url);
 
-			let imageUrl = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file)) as string;
-			let layer = new LayerModel(imageUrl, 0, 0, image.width, image.height);
+			let base = this.baseService.getActive();
+			let fileUrl = URL.createObjectURL(file);
+			let imageUrl = this.sanitizer.bypassSecurityTrustUrl(fileUrl) as string;
+			let layer = new LayerModel(
+				imageUrl,
+				0, 0,
+				Math.min(base.canvasWidth, image.width),
+				Math.min(base.canvasHeight, image.height)
+			);
 
 			this.layerService.addLayer(layer);
+			this.layerService.setActive(layer);
 		});
 
 		image.src = url;
 		input.value = null;
+
+		this.router.navigate([{ outlets: { aux: null } }]);
 	}
 }

@@ -11,6 +11,7 @@ import { UploaderComponent } from './uploader/uploader.component';
 import { LayerService } from './canvas/services/layer.service';
 import { LayerComponent } from './canvas/layer.component';
 import { BaseComponent } from './canvas/base.component';
+import { BaseService } from './canvas/services/base.service';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,8 @@ import { BaseComponent } from './canvas/base.component';
 	],
 
 	providers: [
-		LayerService
+		LayerService,
+		BaseService
 	],
 
 	declarations: [

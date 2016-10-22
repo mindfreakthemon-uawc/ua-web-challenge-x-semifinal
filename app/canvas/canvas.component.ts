@@ -1,8 +1,11 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { ShirtBaseModel } from './models/shirt-base.model';
 import { LayerService } from './services/layer.service';
 import { LayerModel } from './models/layer.model';
 import { BaseModel } from './models/base.model';
+import { BaseService } from './services/base.service';
+import { MugBaseModel } from './models/mug-base.model';
+import { BaseComponent } from './base.component';
 
 export const MIN_SIZE = 50;
 
@@ -13,37 +16,27 @@ export const MIN_SIZE = 50;
 
 })
 export class CanvasComponent implements AfterViewInit {
-	src: string;
-
-	base: BaseModel;
-
 	layers: LayerModel[] = [];
-
-	active: LayerModel;
+	bases: BaseModel[] = [];
 
 	dragging: boolean = false;
-
 	resizing: string = null;
 
-	constructor(public layerService: LayerService) {}
+	constructor(public layerService: LayerService,
+	            public baseService: BaseService) {}
 
 	ngAfterViewInit() {
-		this.base = new ShirtBaseModel();
-
-		this.layerService.updateBeacon
+		this.baseService.beacon
+			.subscribe((bases) => this.bases = bases);
+		this.layerService.beacon
 			.subscribe((layers) => this.layers = layers);
-	}
 
-	clearActive(event: MouseEvent) {
-		let element = event.target as HTMLElement;
+		let shirt = new ShirtBaseModel();
+		let mug = new MugBaseModel();
 
-		if (element.matches('.fn-base-canvas')) {
-			this.active = null;
-		}
-	}
-
-	setActive(layer: LayerModel) {
-		this.active = layer;
+		this.baseService.addBase(shirt);
+		this.baseService.addBase(mug);
+		this.baseService.setActive(mug);
 	}
 
 	clearFlags() {
@@ -52,64 +45,66 @@ export class CanvasComponent implements AfterViewInit {
 	}
 
 	transform(event: MouseEvent) {
-		if (!this.active) {
+		let active = this.layerService.getActive();
+
+		if (!active) {
 			return;
 		}
 
-		let { startX, startY, width, height } = this.active;
+		let { startX, startY, width, height } = active;
 
 		switch (this.resizing) {
 			case 'top-left':
-				this.active.startX += event.movementX;
-				this.active.startY += event.movementY;
-				this.active.width -= event.movementX;
-				this.active.height -= event.movementY;
+				active.startX += event.movementX;
+				active.startY += event.movementY;
+				active.width -= event.movementX;
+				active.height -= event.movementY;
 				break;
 
 			case 'top-right':
-				this.active.width += event.movementX;
-				this.active.startY += event.movementY;
-				this.active.height -= event.movementY;
+				active.width += event.movementX;
+				active.startY += event.movementY;
+				active.height -= event.movementY;
 				break;
 
 			case 'middle-top':
-				this.active.startY += event.movementY;
-				this.active.height -= event.movementY;
+				active.startY += event.movementY;
+				active.height -= event.movementY;
 				break;
 
 			case 'middle-left':
-				this.active.startX += event.movementX;
-				this.active.width -= event.movementX;
+				active.startX += event.movementX;
+				active.width -= event.movementX;
 				break;
 
 			case 'middle-right':
-				this.active.width += event.movementX;
+				active.width += event.movementX;
 				break;
 
 			case 'middle-bottom':
-				this.active.height += event.movementY;
+				active.height += event.movementY;
 				break;
 
 			case 'bottom-left':
-				this.active.startX += event.movementX;
-				this.active.height += event.movementY;
-				this.active.width -= event.movementX;
+				active.startX += event.movementX;
+				active.height += event.movementY;
+				active.width -= event.movementX;
 				break;
 
 			case 'bottom-right':
-				this.active.width += event.movementX;
-				this.active.height += event.movementY;
+				active.width += event.movementX;
+				active.height += event.movementY;
 				break;
 		}
 
 		if (this.dragging) {
-			this.active.startX += event.movementX;
-			this.active.startY += event.movementY;
+			active.startX += event.movementX;
+			active.startY += event.movementY;
 		}
 
-		if (this.active.height < MIN_SIZE || this.active.width < MIN_SIZE) {
+		if (active.height < MIN_SIZE || active.width < MIN_SIZE) {
 			// reset
-			Object.assign(this.active, { startX, startY, width, height });
+			Object.assign(active, { startX, startY, width, height });
 		}
 	}
 }

@@ -5,18 +5,17 @@ nav.nav
 			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['draw'] } }]") Draw image
 			a.btn.btn-primary(href='#') Add Text
 base-cmp(
-	'*ngIf'='base',
-	'[base]'='base',
-	'(click)'='clearActive($event)',
+	'*ngIf'='baseService.getActive()',
+	'[base]'='baseService.getActive()',
 	'(mousemove)'='transform($event)',
 	'(mouseup)'='clearFlags()'
 )
 	layer-cmp(
 		'*ngFor'='let layer of layers',
 		'[layer]'='layer',
-		'(mousedown)'='setActive(layer)',
+		'(mousedown)'='layerService.setActive(layer)',
 		'(onResizeFlagChange)'='resizing = $event',
 		'(onDragFlagChange)'='dragging = $event',
-		'[active]'='active === layer'
+		'[active]'='layerService.getActive() === layer'
 	)
 

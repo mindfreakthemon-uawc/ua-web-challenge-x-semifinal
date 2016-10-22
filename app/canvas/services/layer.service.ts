@@ -1,5 +1,4 @@
 import { LayerModel } from '../models/layer.model';
-import { Point } from '../interfaces/point';
 import { ReplaySubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -7,8 +6,19 @@ import { Injectable } from '@angular/core';
 export class LayerService {
 	layers: LayerModel[] = [];
 
-	private updateSource = new ReplaySubject<LayerModel[]>();
-	updateBeacon = this.updateSource.asObservable();
+	private source = new ReplaySubject<LayerModel[]>();
+
+	beacon = this.source.asObservable();
+
+	active: LayerModel = null;
+
+	getActive(): LayerModel {
+		return this.active;
+	}
+
+	setActive(layer: LayerModel): void {
+		this.active = layer;
+	}
 
 	addLayer(layer: LayerModel) {
 		this.layers.push(layer);
@@ -54,6 +64,6 @@ export class LayerService {
 	}
 
 	protected update() {
-		this.updateSource.next(this.layers);
+		this.source.next(this.layers);
 	}
 }
