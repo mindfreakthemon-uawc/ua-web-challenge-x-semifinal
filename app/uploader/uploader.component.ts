@@ -25,7 +25,7 @@ export class UploaderComponent {
 		image.addEventListener('load', () => {
 			URL.revokeObjectURL(url);
 
-			let base = this.baseService.getActive();
+			let base = this.baseService.active;
 			let fileUrl = URL.createObjectURL(file);
 			let imageUrl = this.sanitizer.bypassSecurityTrustUrl(fileUrl) as string;
 			let layer = new LayerModel(
@@ -36,7 +36,7 @@ export class UploaderComponent {
 			);
 
 			this.layerService.addLayer(layer);
-			this.layerService.setActive(layer);
+			this.layerService.active = layer;
 		});
 
 		image.src = url;

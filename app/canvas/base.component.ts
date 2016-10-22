@@ -18,12 +18,20 @@ export class BaseComponent implements AfterViewInit {
 	constructor(public layerService: LayerService,
 	            public baseService: BaseService) {}
 
-	@HostListener('window:resize', ['$event'])
-	onResize(event) {
-		// console.log(this.image.nativeElement.width);
+	@HostListener('window:resize')
+	handleResize() {
+		this.calculate();
 	}
 
 	ngAfterViewInit() {
-		// console.log(this.image.nativeElement.width);
+		this.calculate();
+	}
+
+	calculate() {
+		this.baseService.coefficient = this.coefficient;
+	}
+
+	get coefficient() {
+		return this.image.nativeElement.width / this.base.width;
 	}
 }

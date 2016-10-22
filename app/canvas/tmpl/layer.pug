@@ -1,8 +1,8 @@
 .layer-wrapper(
-	'[style.height.px]'='layer.height',
-	'[style.width.px]'='layer.width',
-	'[style.top.px]'='layer.startY',
-	'[style.left.px]'='layer.startX',
+	'[style.height.px]'='layer.height * coefficient',
+	'[style.width.px]'='layer.width * coefficient',
+	'[style.top.px]'='layer.startY * coefficient',
+	'[style.left.px]'='layer.startX * coefficient',
 
 	'[class.selected]'='active',
 )

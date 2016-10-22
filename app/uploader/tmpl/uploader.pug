@@ -7,5 +7,4 @@
 				input.form-control(type='file', '(change)'='handleFileSelect($event)', accept='.jpg,.png')
 				p.form-text.text-muted You can use only jpg or png images.
 			.row
-				.col-md-3.offset-md-9
-					a.btn.btn-info.btn-block([routerLink]="['', { outlets: { aux: null } }]") Close upload
+				a.btn.btn-warning.btn-block([routerLink]="['', { outlets: { aux: null } }]") Close upload

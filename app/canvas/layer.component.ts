@@ -11,7 +11,10 @@ export class LayerComponent {
 	layer: LayerModel;
 
 	@Input()
-	active: boolean;
+	active: boolean = false;
+
+	@Input()
+	coefficient: number = 1;
 
 	@Output()
 	onResizeFlagChange = new EventEmitter<boolean>();

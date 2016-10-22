@@ -10,15 +10,7 @@ export class LayerService {
 
 	beacon = this.source.asObservable();
 
-	active: LayerModel = null;
-
-	getActive(): LayerModel {
-		return this.active;
-	}
-
-	setActive(layer: LayerModel): void {
-		this.active = layer;
-	}
+	private _active: LayerModel = null;
 
 	addLayer(layer: LayerModel) {
 		this.layers.push(layer);
@@ -43,24 +35,12 @@ export class LayerService {
 		this.update();
 	}
 
-	positionLayer(layer: LayerModel, startX: number, startY: number) {
-		layer.startX = startX;
-		layer.startY = startY;
-
-		this.update();
+	get active(): LayerModel {
+		return this._active;
 	}
 
-	rotateLayer(layer: LayerModel, angle: number) {
-		layer.angle = angle;
-
-		this.update();
-	}
-
-	resizeLayer(layer: LayerModel, width: number, height: number) {
-		layer.width = width;
-		layer.height = height;
-
-		this.update();
+	set active(value: LayerModel) {
+		this._active = value;
 	}
 
 	protected update() {

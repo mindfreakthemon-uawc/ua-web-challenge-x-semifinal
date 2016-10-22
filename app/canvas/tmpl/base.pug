@@ -1,20 +1,17 @@
-.base-wrapper(
-		'[style.height.px]'='base.height',
-		'[style.width.px]'='base.width'
-	)
+.base-wrapper
 
 	img.fn-deactivate(
 		'#image'='',
 		'[src]'='base.src',
 		'(dragstart)'='$event.preventDefault()',
-		'(click)'='layerService.setActive(null)'
+		'(click)'='layerService.active = null'
 	)
 
 	.base-canvas(
-		'[style.height.px]'='base.canvasHeight',
-		'[style.width.px]'='base.canvasWidth',
-		'[style.top.px]'='base.canvasY',
-		'[style.left.px]'='base.canvasX',
-		'(click)'='layerService.setActive(null)'
+		'[style.height.px]'='base.canvasHeight * coefficient',
+		'[style.width.px]'='base.canvasWidth * coefficient',
+		'[style.top.px]'='base.canvasY * coefficient',
+		'[style.left.px]'='base.canvasX * coefficient',
+		'(click)'='$event.target === $event.currentTarget ? (layerService.active = null) : null'
 	)
 		ng-content

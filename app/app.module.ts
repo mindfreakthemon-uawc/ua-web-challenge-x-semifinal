@@ -12,6 +12,7 @@ import { LayerService } from './canvas/services/layer.service';
 import { LayerComponent } from './canvas/layer.component';
 import { BaseComponent } from './canvas/base.component';
 import { BaseService } from './canvas/services/base.service';
+import { DrawerComponent } from './drawer/drawer.component';
 
 @NgModule({
 	imports: [
@@ -31,6 +32,7 @@ import { BaseService } from './canvas/services/base.service';
 		MainComponent,
 		CanvasComponent,
 		UploaderComponent,
+		DrawerComponent,
 		LayerComponent,
 		BaseComponent
 	],

@@ -10,7 +10,9 @@ export class BaseService {
 
 	beacon = this.source.asObservable();
 
-	active: BaseModel = null;
+	private _active: BaseModel = null;
+
+	private _coefficient: number = 1;
 
 	addBase(base: BaseModel) {
 		this.bases.push(base);
@@ -26,12 +28,20 @@ export class BaseService {
 		this.update();
 	}
 
-	getActive(): BaseModel {
-		return this.active;
+	get active(): BaseModel {
+		return this._active;
 	}
 
-	setActive(base: BaseModel): void {
-		this.active = base;
+	set active(value: BaseModel) {
+		this._active = value;
+	}
+
+	get coefficient(): number {
+		return this._coefficient;
+	}
+
+	set coefficient(value: number) {
+		this._coefficient = value;
 	}
 
 	protected update() {
