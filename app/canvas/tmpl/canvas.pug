@@ -16,10 +16,11 @@ base-cmp(
 	layer-cmp(
 		'*ngFor'='let layer of layers',
 		'[layer]'='layer',
-		'(mousedown)'='layerService.active = layer',
-		'(onResizeFlagChange)'='resizing = $event',
-		'(onDragFlagChange)'='dragging = $event',
 		'[active]'='layerService.active === layer',
-		'[coefficient]'='baseComponent.coefficient'
+		'[coefficient]'='baseComponent.coefficient',
+		'(mousedown)'='layerService.active = layer',
+		'(resizeBeacon)'='resizing = $event',
+		'(dragBeacon)'='dragging = $event',
+		'(rotateBeacon)'='rotating = $event'
 	)
 

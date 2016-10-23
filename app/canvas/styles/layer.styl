@@ -17,66 +17,63 @@
 	}
 }
 
+/*
+ * Transform controls
+ */
 $control-size = 20px
 $control-half-size = 10px
 
-.control-top-left,
-.control-top-right,
-.control-middle-top,
-.control-middle-left,
-.control-middle-right,
-.control-middle-bottom,
-.control-bottom-left,
-.control-bottom-right {
-	display: none;
+.control-tool {
 	width: $control-size;
 	height: $control-size;
 	background: rgba(0, 0, 0, .5);
 	border-radius: 50%;
 	position: absolute;
 	border: 1px solid #fff;
-
-	.layer-wrapper.selected & {
-		display: block;
-	}
 }
 
-.control-top-left {
+.control-rotate {
+	top: 10%;
+	left: 'calc(50% - %s)' % $control-half-size;
+}
+
+.control-resize_top-left {
 	top: - $control-half-size;
 	left: - $control-half-size;
 }
 
-.control-top-right {
+.control-resize_top-right {
 	top: - $control-half-size;
 	right: - $control-half-size;
 }
 
-.control-middle-top {
+.control-resize_middle-top {
 	top: - $control-half-size;
 	left: 'calc(50% - %s)' % $control-half-size;
 }
 
-.control-middle-left {
+.control-resize_middle-left {
 	top: 'calc(50% - %s)' % $control-half-size;
 	left: - $control-half-size;
 }
 
-.control-middle-right {
+.control-resize_middle-right {
 	top: 'calc(50% - %s)' % $control-half-size;
 	right: - $control-half-size;
 }
 
-.control-middle-bottom {
+.control-resize_middle-bottom {
 	bottom: - $control-half-size;
 	left: 'calc(50% - %s)' % $control-half-size;
 }
 
-.control-bottom-left {
+.control-resize_bottom-left {
 	bottom: - $control-half-size;
 	left: - $control-half-size;
 }
 
-.control-bottom-right {
+.control-resize_bottom-right {
 	bottom: - $control-half-size;
 	right: - $control-half-size;
 }
+/* --- */

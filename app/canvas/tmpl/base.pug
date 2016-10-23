@@ -14,4 +14,4 @@
 		'[style.left.px]'='base.canvasX * coefficient',
 		'(click)'='$event.target === $event.currentTarget ? (layerService.active = null) : null'
 	)
-		ng-content
+		ng-content(select='layer-cmp')

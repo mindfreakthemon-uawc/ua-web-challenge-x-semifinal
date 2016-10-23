@@ -3,35 +3,50 @@
 	'[style.width.px]'='layer.width * coefficient',
 	'[style.top.px]'='layer.startY * coefficient',
 	'[style.left.px]'='layer.startX * coefficient',
-
-	'[class.selected]'='active',
+	'[style.transform]'='"rotate(" + layer.angle + "rad)"',
+	'[class.selected]'='active'
 )
 	img(
+		'#image'='',
 		'[src]'='layer.src',
 		'(dragstart)'='$event.preventDefault()',
-		'(mousedown)'='onDragFlagChange.emit(true)'
+		'(mousedown)'='dragBeacon.emit(true)'
 	)
-	span.control-top-left(
-		'(mousedown)'='onResizeFlagChange.emit("top-left")'
-	)
-	span.control-top-right(
-		'(mousedown)'='onResizeFlagChange.emit("top-right")'
-	)
-	span.control-middle-top(
-		'(mousedown)'='onResizeFlagChange.emit("middle-top")'
-	)
-	span.control-middle-left(
-		'(mousedown)'='onResizeFlagChange.emit("middle-left")'
-	)
-	span.control-middle-right(
-		'(mousedown)'='onResizeFlagChange.emit("middle-right")'
-	)
-	span.control-middle-bottom(
-		'(mousedown)'='onResizeFlagChange.emit("middle-bottom")'
-	)
-	span.control-bottom-left(
-		'(mousedown)'='onResizeFlagChange.emit("bottom-left")'
-	)
-	span.control-bottom-right(
-		'(mousedown)'='onResizeFlagChange.emit("bottom-right")'
-	)
+
+	.control-toolbox('*ngIf'='active')
+		.control-tool.control-rotate(
+			'(mousedown)'='rotateBeacon.emit(true)',
+			title='rotate'
+		)
+		.control-tool.control-resize.control-resize_top-left(
+			'(mousedown)'='resizeBeacon.emit("top-left")',
+			title='transform top-left'
+		)
+		.control-tool.control-resize.control-resize_top-right(
+			'(mousedown)'='resizeBeacon.emit("top-right")',
+			title='transform top-right'
+		)
+		.control-tool.control-resize.control-resize_middle-top(
+			'(mousedown)'='resizeBeacon.emit("middle-top")',
+			title='transform middle-top'
+		)
+		.control-tool.control-resize.control-resize_middle-left(
+			'(mousedown)'='resizeBeacon.emit("middle-left")',
+			title='transform middle-left'
+		)
+		.control-tool.control-resize.control-resize_middle-right(
+			'(mousedown)'='resizeBeacon.emit("middle-right")',
+			title='transform middle-right'
+		)
+		.control-tool.control-resize.control-resize_middle-bottom(
+			'(mousedown)'='resizeBeacon.emit("middle-bottom")',
+			title='transform middle-bottom'
+		)
+		.control-tool.control-resize.control-resize_bottom-left(
+			'(mousedown)'='resizeBeacon.emit("bottom-left")',
+			title='transform bottom-left'
+		)
+		.control-tool.control-resize.control-resize_bottom-right(
+			'(mousedown)'='resizeBeacon.emit("bottom-right")',
+			title='transform bottom-right'
+		)

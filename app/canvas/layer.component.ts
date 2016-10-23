@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
 import { LayerModel } from './models/layer.model';
 
 @Component({
@@ -13,12 +13,18 @@ export class LayerComponent {
 	@Input()
 	active: boolean = false;
 
+	@ViewChild('image')
+	image: ElementRef;
+
 	@Input()
 	coefficient: number = 1;
 
 	@Output()
-	onResizeFlagChange = new EventEmitter<boolean>();
+	resizeBeacon = new EventEmitter<string>();
 
 	@Output()
-	onDragFlagChange = new EventEmitter<boolean>();
+	dragBeacon = new EventEmitter<boolean>();
+
+	@Output()
+	rotateBeacon = new EventEmitter<boolean>();
 }
