@@ -1,10 +1,20 @@
 .container.card.p-a-1
 	.card-block
-		h4.card-title Add local image
+		h4.card-title add image
 
 		form
+			.uploader-error('[ngSwitch]'='error')
+				.alert.alert-gander('*ngSwitchCase'='"network"') Sorry, there was an error while loading this image.
+
 			.form-group
+				label from your computer:
 				input.form-control(type='file', '(change)'='handleFileSelect($event)', accept='.jpg,.png')
-				p.form-text.text-muted You can use only jpg or png images.
+
+			.form-group
+				label from internets:
+				input.form-control(type='url', '(change)'='handleRemoteUrl($event)', '(paste)'='handleRemoteUrlPaste($event)')
+
+			p.form-text.text-muted you can use only jpg or png images.
+
 			.row
 				a.btn.btn-warning.btn-block([routerLink]="['', { outlets: { aux: null } }]") Close upload

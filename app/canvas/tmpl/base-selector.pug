@@ -9,7 +9,7 @@
 		'(click)'='changing = false'
 	) hide
 
-.base-items('*ngIf'='changing')
+.base-items.m-t-1('*ngIf'='changing')
 	.base-item(
 		'*ngFor'='let base of bases',
 		'[class.active]'='base === active',

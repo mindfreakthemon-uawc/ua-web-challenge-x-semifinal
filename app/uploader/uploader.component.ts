@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 	styleUrls: ['build/styles/uploader/uploader.css']
 })
 export class UploaderComponent {
+	error: string;
+
 	constructor(public layerService: LayerService,
 		public baseService: BaseService,
 		private router: Router) {
@@ -18,27 +20,61 @@ export class UploaderComponent {
 	handleFileSelect(event: Event) {
 		let input = event.target as HTMLInputElement;
 		let file = input.files[0];
-		let image = new Image();
 		let url = URL.createObjectURL(file);
 
-		image.addEventListener('load', () => {
-			URL.revokeObjectURL(url);
+		this.add(url);
+	}
 
+	handleRemoteUrlPaste(event: ClipboardEvent) {
+		let items = event.clipboardData.items;
+
+		if (items.length) {
+			event.preventDefault();
+
+			items[0].getAsString((text) => this.add(text));
+		}
+	}
+
+	handleRemoteUrl(event: Event) {
+		let input = event.target as HTMLInputElement;
+
+		this.add(input.value);
+	}
+
+	protected close() {
+		this.router.navigate([{ outlets: { aux: null } }]);
+	}
+
+	protected add(url: string) {
+		let image = new Image();
+
+		image.addEventListener('load', () => {
 			let base = this.baseService.active;
+			let canvasMin = Math.min(base.canvasWidth, base.canvasHeight);
+			let imageMax = Math.max(image.width, image.height);
+			let coefficient = 1;
+
+			if (imageMax > canvasMin) {
+				coefficient = canvasMin / imageMax;
+			}
+
 			let layer = new LayerModel(
-				URL.createObjectURL(file),
+				url,
 				0, 0,
-				Math.min(base.canvasWidth, image.width),
-				Math.min(base.canvasHeight, image.height)
+				coefficient * image.width,
+				coefficient * image.height
 			);
 
 			this.layerService.add(layer);
 			this.layerService.active = layer;
+
+			this.close();
+		});
+
+		image.addEventListener('error', () => {
+			this.error = 'network';
 		});
 
 		image.src = url;
-		input.value = null;
-
-		this.router.navigate([{ outlets: { aux: null } }]);
 	}
 }
