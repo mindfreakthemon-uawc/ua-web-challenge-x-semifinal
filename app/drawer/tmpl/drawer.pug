@@ -22,10 +22,9 @@
 			)
 
 			.row.m-y-1
-				.col-md-12
-					a.btn.btn-primary.btn-block('(click)'='add()') Add image
-			.row
-				.col-md-6
-					a.btn.btn-danger.btn-block('(click)'='clear()') Clear canvas
-				.col-md-6
-					a.btn.btn-warning.btn-block([routerLink]="['', { outlets: { aux: null } }]") Close drawer
+				.col-md-4
+					button.btn.btn-primary.btn-block(type='button', '(click)'='add()') add image
+				.col-md-4
+					button.btn.btn-danger.btn-block(type='button', '(click)'='clear()') clear canvas
+				.col-md-4
+					a.btn.btn-warning.btn-block([routerLink]="['', { outlets: { aux: null } }]") close drawer

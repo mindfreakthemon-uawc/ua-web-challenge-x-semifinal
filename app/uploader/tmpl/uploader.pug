@@ -2,9 +2,12 @@
 	.card-block
 		h4.card-title add image
 
-		form
-			.uploader-error('[ngSwitch]'='error')
-				.alert.alert-gander('*ngSwitchCase'='"network"') Sorry, there was an error while loading this image.
+		.uploader-error('[ngSwitch]'='error')
+			.alert.alert-gander('*ngSwitchCase'='"network"') Sorry, there was an error while loading this image.
+
+		.alert.alert-info('*ngIf'='loading') loading...
+
+		form('*ngIf'='!loading')
 
 			.form-group
 				label from your computer:
@@ -16,5 +19,5 @@
 
 			p.form-text.text-muted you can use only jpg or png images.
 
-			.row
-				a.btn.btn-warning.btn-block([routerLink]="['', { outlets: { aux: null } }]") Close upload
+		.row
+			a.btn.btn-warning.btn-block([routerLink]="['', { outlets: { aux: null } }]") Close upload
