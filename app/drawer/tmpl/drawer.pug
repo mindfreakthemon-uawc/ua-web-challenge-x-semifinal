@@ -1,25 +1,28 @@
 .container.card.p-a-1
 	.card-block
-		h4.card-title Draw image
+		h4.card-title draw image
 
 		form.form-inline
-			.form-group
-				label Color:
-				input(type='color', '[(ngModel)]'='color', name='color')
-			.form-group
-				label Stroke Width:
-				input(type='range', min=1, max=100, '[(ngModel)]'='strokeWidth', name='strokeWidth')
+			.row
+				.col-md-9
+					canvas(
+						'#canvasRef'='',
+						'[width]'='canvasRef.offsetWidth',
+						'[height]'='canvasRef.offsetHeight',
+						'(mousedown)'='drawing = true; draw($event, true)',
+						'(mouseleave)'='drawing = false',
+						'(mouseup)'='drawing = false',
+						'(mousemove)'='draw($event)',
+						'(dragstart)'='$event.preventDefault()'
+					)
+				.col-md-3
+					.form-group
+						label color:
+						input(type='color', '[(ngModel)]'='color', name='color')
+					.form-group
+						label stroke width:
+						input(type='range', min=1, max=100, '[(ngModel)]'='strokeWidth', name='strokeWidth')
 
-			canvas(
-				'#canvasRef'='',
-				'[width]'='canvasRef.offsetWidth',
-				'[height]'='canvasRef.offsetHeight',
-				'(mousedown)'='drawing = true; draw($event, true)',
-				'(mouseleave)'='drawing = false',
-				'(mouseup)'='drawing = false',
-				'(mousemove)'='draw($event)',
-				'(dragstart)'='$event.preventDefault()'
-			)
 
 			.row.m-y-1
 				.col-md-4
