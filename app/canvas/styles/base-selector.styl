@@ -1,11 +1,35 @@
+:host {
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	z-index: 2;
+}
+
+.base-changer {
+	cursor: pointer;
+}
+
 .base-item {
-	display: inline-block;
+	cursor: pointer;
+	position: relative;
+	user-select: none;
+	width: 5em;
+	height: 5em;
+	background-size: cover;
+	border: 1px solid rgba(0, 0, 0, .5);
+	box-shadow: 1px 1px 1em rgba(0, 0, 0, .5);
+	background-color: #29262b;
 
-	width: 10em;
-	height: 10em;
-
-	img {
-		width: 100%;
-		height: 100%;
+	&.active {
+		pointer-events: none;
+		opacity: .2;
 	}
+}
+
+.base-title {
+	pointer-events: none;
+	position: absolute;
+	left: 0;
+	bottom: 1em;
+	width: 100%;
 }

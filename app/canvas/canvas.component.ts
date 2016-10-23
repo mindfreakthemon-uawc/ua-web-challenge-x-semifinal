@@ -24,7 +24,7 @@ export class CanvasComponent implements AfterViewInit {
 	rotating: boolean = false;
 
 	resizing: string = null;
-	
+
 	@ViewChild(BaseComponent)
 	baseComponent: BaseComponent;
 
@@ -32,7 +32,8 @@ export class CanvasComponent implements AfterViewInit {
 	layerComponents: QueryList<LayerComponent>;
 
 	constructor(public layerService: LayerService,
-	            public baseService: BaseService) {}
+		public baseService: BaseService) {
+	}
 
 	ngAfterViewInit() {
 		this.baseService.beacon
@@ -65,7 +66,7 @@ export class CanvasComponent implements AfterViewInit {
 		let centerX = window.scrollX + rect.left + (rect.width / 2);
 		let centerY = window.scrollY + rect.top + (rect.height / 2);
 		let coefficient = this.baseService.coefficient;
-		let angle = - Math.atan2(centerX - event.pageX, centerY - event.pageY);
+		let angle = -Math.atan2(centerX - event.pageX, centerY - event.pageY);
 		let movementX = event.movementX / coefficient;
 		let movementY = event.movementY / coefficient;
 

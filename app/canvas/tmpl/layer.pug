@@ -8,7 +8,7 @@
 )
 	img(
 		'#image'='',
-		'[src]'='layer.src',
+		'[src]'='transform(layer.src)',
 		'(dragstart)'='$event.preventDefault()',
 		'(mousedown)'='dragBeacon.emit(true)'
 	)

@@ -15,8 +15,8 @@ export class BaseComponent implements AfterViewInit {
 	@ViewChild('image')
 	image: ElementRef;
 
-	constructor(public layerService: LayerService,
-	            public baseService: BaseService) {}
+	constructor(public layerService: LayerService, public baseService: BaseService) {
+	}
 
 	@HostListener('window:resize')
 	handleResize() {

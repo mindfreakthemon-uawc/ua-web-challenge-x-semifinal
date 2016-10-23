@@ -1,0 +1,5 @@
+.layer-item(
+	'*ngFor'='let layer of layers',
+	'(click)'='beacon.emit(layer)',
+	'[style.background-image]'='transform(layer.src)'
+)

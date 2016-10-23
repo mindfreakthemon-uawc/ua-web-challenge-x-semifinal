@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class BaseService {
 	bases: BaseModel[] = [];
 
-	private source = new ReplaySubject<BaseModel[]>();
+	source = new ReplaySubject<BaseModel[]>();
 
 	beacon = this.source.asObservable();
 

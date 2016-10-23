@@ -1,5 +1,7 @@
-import { Component, Input, EventEmitter, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, EventEmitter, Output, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { LayerModel } from './models/layer.model';
+import { LayerService } from './services/layer.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
 	selector: 'layer-cmp',
@@ -9,9 +11,6 @@ import { LayerModel } from './models/layer.model';
 export class LayerComponent {
 	@Input()
 	layer: LayerModel;
-
-	@Input()
-	active: boolean = false;
 
 	@ViewChild('image')
 	image: ElementRef;
@@ -27,4 +26,21 @@ export class LayerComponent {
 
 	@Output()
 	rotateBeacon = new EventEmitter<boolean>();
+
+	get active() {
+		return this.layerService.active === this.layer;
+	}
+
+	constructor(public layerService: LayerService,
+		public sanitizer: DomSanitizer) {
+	}
+
+	@HostListener('mousedown')
+	handleMouseDown() {
+		this.layerService.active = this.layer;
+	}
+
+	transform(url: string): string {
+		return this.sanitizer.bypassSecurityTrustUrl(url) as string;
+	}
 }

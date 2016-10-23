@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class LayerService {
 	layers: LayerModel[] = [];
 
-	private source = new ReplaySubject<LayerModel[]>();
+	source = new ReplaySubject<LayerModel[]>();
 
 	beacon = this.source.asObservable();
 

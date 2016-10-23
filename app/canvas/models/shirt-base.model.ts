@@ -1,6 +1,10 @@
 import { BaseModel } from './base.model';
 
 export class ShirtBaseModel extends BaseModel {
+	get name(): string {
+		return 'T-Shirt';
+	}
+
 	get src(): string {
 		return '/build/statics/images/shirt.png';
 	}

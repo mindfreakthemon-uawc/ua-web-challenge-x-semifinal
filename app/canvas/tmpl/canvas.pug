@@ -1,11 +1,14 @@
-nav.nav
-	.row.p-a-1.text-xs-center
-		.btn-group
-			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['upload'] } }]") Add local image
-			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['draw'] } }]") Draw image
-			a.btn.btn-primary(href='#') Add Text
+base-selector-cmp(
+	'[bases]'='bases',
+	'[active]'='baseService.active',
+	'(beacon)'='baseService.active = $event'
+)
 
-base-selector-cmp('[bases]'='bases')
+layer-selector-cmp(
+	'[layers]'='layers',
+	'[active]'='layerService.active',
+	'(beacon)'='layerService.active = $event'
+)
 
 base-cmp(
 	'*ngIf'='baseService.active',
@@ -16,9 +19,7 @@ base-cmp(
 	layer-cmp(
 		'*ngFor'='let layer of layers',
 		'[layer]'='layer',
-		'[active]'='layerService.active === layer',
 		'[coefficient]'='baseComponent.coefficient',
-		'(mousedown)'='layerService.active = layer',
 		'(resizeBeacon)'='resizing = $event',
 		'(dragBeacon)'='dragging = $event',
 		'(rotateBeacon)'='rotating = $event'

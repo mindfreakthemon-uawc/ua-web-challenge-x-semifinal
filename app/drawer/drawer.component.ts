@@ -1,7 +1,6 @@
-import { Component, ViewChild, ElementRef, HostListener, HostBinding, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, AfterViewInit } from '@angular/core';
 import { LayerService } from '../canvas/services/layer.service';
 import { BaseService } from '../canvas/services/base.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { LayerModel } from '../canvas/models/layer.model';
 import { Router } from '@angular/router';
 
@@ -31,12 +30,12 @@ export class DrawerComponent implements AfterViewInit {
 	strokeWidth: number = 5;
 
 	constructor(public layerService: LayerService,
-	            public baseService: BaseService,
-	            private sanitizer: DomSanitizer,
-	            private router: Router) {}
+		public baseService: BaseService,
+		private router: Router) {
+	}
 
 	get canvas(): HTMLCanvasElement {
-		return this.canvasRef.nativeElement as HTMLCanvasElement
+		return this.canvasRef.nativeElement as HTMLCanvasElement;
 	}
 
 	get context(): CanvasRenderingContext2D {
@@ -80,9 +79,8 @@ export class DrawerComponent implements AfterViewInit {
 	add() {
 		let base = this.baseService.active;
 		let fileUrl = this.canvas.toDataURL();
-		let imageUrl = this.sanitizer.bypassSecurityTrustUrl(fileUrl) as string;
 		let layer = new LayerModel(
-			imageUrl,
+			fileUrl,
 			0, 0,
 			Math.min(base.canvasWidth, this.canvas.offsetWidth),
 			Math.min(base.canvasHeight, this.canvas.offsetHeight)

@@ -14,6 +14,7 @@ import { BaseComponent } from './canvas/base.component';
 import { BaseService } from './canvas/services/base.service';
 import { DrawerComponent } from './drawer/drawer.component';
 import { BaseSelectorComponent } from './canvas/base-selector.component';
+import { LayerSelectorComponent } from './canvas/layer-selector.component';
 
 @NgModule({
 	imports: [
@@ -36,7 +37,8 @@ import { BaseSelectorComponent } from './canvas/base-selector.component';
 		DrawerComponent,
 		LayerComponent,
 		BaseComponent,
-		BaseSelectorComponent
+		BaseSelectorComponent,
+		LayerSelectorComponent
 	],
 
 	bootstrap: [

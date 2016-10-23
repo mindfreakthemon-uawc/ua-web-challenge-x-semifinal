@@ -1,1 +1,8 @@
-canvas-cmp.p-x-1
+nav.nav
+	.row.p-a-1.text-xs-center
+		.btn-group
+			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['upload'] } }]") Add local image
+			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['draw'] } }]") Draw image
+			a.btn.btn-primary(href='#') Add Text
+
+canvas-cmp

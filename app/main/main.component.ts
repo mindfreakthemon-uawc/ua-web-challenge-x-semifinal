@@ -11,7 +11,8 @@ import { MugBaseModel } from '../canvas/models/mug-base.model';
 export class MainComponent implements AfterViewInit {
 
 	constructor(public layerService: LayerService,
-	            public baseService: BaseService) {}
+		public baseService: BaseService) {
+	}
 
 	ngAfterViewInit() {
 		let shirt = new ShirtBaseModel();
@@ -19,6 +20,6 @@ export class MainComponent implements AfterViewInit {
 
 		this.baseService.addBase(shirt);
 		this.baseService.addBase(mug);
-		this.baseService.active = mug;
+		this.baseService.active = shirt;
 	}
 }

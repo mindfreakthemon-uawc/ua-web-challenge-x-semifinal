@@ -1,2 +1,20 @@
-.base-item('*ngFor'='let base of bases')
-		img('[src]'='base.src', '(click)'='baseService.active = base')
+.base-active('*ngIf'='active')
+	.tag.tag-primary Base: {{active.name}}
+	.tag.tag-warning.base-changer(
+		'*ngIf'='!changing',
+		'(click)'='changing = true'
+	) Change
+	.tag.tag-danger.base-changer(
+		'*ngIf'='changing',
+		'(click)'='changing = false'
+	) Hide
+
+.base-items('*ngIf'='changing')
+	.base-item(
+		'*ngFor'='let base of bases',
+		'[class.active]'='base === active',
+		'(click)'='beacon.emit(base); changing = false',
+		'[style.background-image]'='"url(" + base.src + ")"'
+	)
+		.base-title.text-xs-center
+			.tag.tag-primary {{base.name}}

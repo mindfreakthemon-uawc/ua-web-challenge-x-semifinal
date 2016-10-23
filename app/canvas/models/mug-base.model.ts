@@ -1,6 +1,10 @@
 import { BaseModel } from './base.model';
 
 export class MugBaseModel extends BaseModel {
+	get name(): string {
+		return 'Mug';
+	}
+
 	get src(): string {
 		return '/build/statics/images/mug.jpg';
 	}
