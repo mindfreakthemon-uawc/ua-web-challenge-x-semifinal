@@ -19,10 +19,10 @@ export class MainComponent implements AfterViewInit {
 		let shirt = new ShirtBaseModel();
 		let mug = new MugBaseModel();
 
-		this.baseService.addBase(shirt);
-		this.baseService.addBase(mug);
+		this.baseService.add(shirt);
+		this.baseService.add(mug);
 		this.baseService.active = shirt;
 
-		this.layerService.addLayer(new LayerModel('/build/statics/images/slowpoke.png', 0, 0, 200, 195))
+		this.layerService.add(new LayerModel('/build/statics/images/slowpoke.png', 0, 0, 200, 195))
 	}
 }

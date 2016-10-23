@@ -17,7 +17,15 @@ export class LayerSelectorComponent {
 	active: LayerModel;
 
 	@Output()
-	beacon = new EventEmitter<BaseModel>();
+	activateBeacon = new EventEmitter<BaseModel>();
+
+	@Output()
+	resetBeacon = new EventEmitter<BaseModel>();
+
+	@Output()
+	removeBeacon = new EventEmitter<BaseModel>();
+
+	showing: boolean = false;
 
 	constructor(private sanitizer: DomSanitizer) {
 	}

@@ -1,6 +1,5 @@
-import { Component, Input, ViewChild, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, HostListener, OnInit, EventEmitter, Output } from '@angular/core';
 import { BaseModel } from './models/base.model';
-import { LayerService } from './services/layer.service';
 import { BaseService } from './services/base.service';
 
 @Component({
@@ -15,7 +14,10 @@ export class BaseComponent implements OnInit {
 	@ViewChild('image')
 	image: ElementRef;
 
-	constructor(public layerService: LayerService, public baseService: BaseService) {
+	@Output()
+	outsideClickBeacon = new EventEmitter();
+
+	constructor(public baseService: BaseService) {
 	}
 
 	@HostListener('window:resize')

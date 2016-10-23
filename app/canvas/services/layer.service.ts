@@ -12,13 +12,13 @@ export class LayerService {
 
 	private _active: LayerModel = null;
 
-	addLayer(layer: LayerModel) {
+	add(layer: LayerModel) {
 		this.layers.push(layer);
 
 		this.update();
 	}
 
-	removeLayer(layer: LayerModel) {
+	remove(layer: LayerModel) {
 		let currentIndex = this.layers.indexOf(layer);
 
 		this.layers.splice(currentIndex, 1);
@@ -26,13 +26,19 @@ export class LayerService {
 		this.update();
 	}
 
-	zIndexLayer(layer: LayerModel, index: number) {
+	zIndex(layer: LayerModel, index: number) {
 		let currentIndex = this.layers.indexOf(layer);
 
 		this.layers.splice(currentIndex, 1);
 		this.layers.splice(index > currentIndex ? index - 1 : index, 0, layer);
 
 		this.update();
+	}
+
+	reset(layer: LayerModel) {
+		layer.angle = 0;
+		layer.startX = 0;
+		layer.startY = 0;
 	}
 
 	get active(): LayerModel {

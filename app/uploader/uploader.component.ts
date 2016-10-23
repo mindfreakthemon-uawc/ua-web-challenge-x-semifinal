@@ -32,7 +32,7 @@ export class UploaderComponent {
 				Math.min(base.canvasHeight, image.height)
 			);
 
-			this.layerService.addLayer(layer);
+			this.layerService.add(layer);
 			this.layerService.active = layer;
 		});
 

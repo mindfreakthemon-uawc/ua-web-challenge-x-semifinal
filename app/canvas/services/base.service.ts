@@ -14,16 +14,8 @@ export class BaseService {
 
 	private _coefficient: number = 1;
 
-	addBase(base: BaseModel) {
+	add(base: BaseModel) {
 		this.bases.push(base);
-
-		this.update();
-	}
-
-	removeBase(base: BaseModel) {
-		let currentIndex = this.bases.indexOf(base);
-
-		this.bases.splice(currentIndex, 1);
 
 		this.update();
 	}

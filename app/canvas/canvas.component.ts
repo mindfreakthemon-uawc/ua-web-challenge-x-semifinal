@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { LayerService } from './services/layer.service';
 import { LayerModel } from './models/layer.model';
 import { BaseModel } from './models/base.model';
@@ -47,7 +47,7 @@ export class CanvasComponent implements AfterViewInit {
 	transform(event: MouseEvent) {
 		let active = this.layerService.active;
 
-		if (!active) {
+		if (!active || !this.dragging && !this.rotating && !this.resizing) {
 			return;
 		}
 
@@ -61,23 +61,41 @@ export class CanvasComponent implements AfterViewInit {
 		let rect = component.image.nativeElement.getBoundingClientRect();
 		let centerX = window.scrollX + rect.left + (rect.width / 2);
 		let centerY = window.scrollY + rect.top + (rect.height / 2);
-		let coefficient = this.baseService.coefficient;
 		let angle = -Math.atan2(centerX - event.pageX, centerY - event.pageY);
+		let coefficient = this.baseService.coefficient;
 		let movementX = event.movementX / coefficient;
 		let movementY = event.movementY / coefficient;
-
 		let { startX, startY, width, height } = active;
 
 		this.resize(active, movementX, movementY);
-
 		this.drag(active, movementX, movementY);
-
 		this.rotate(active, angle);
 
-		if (active.height < MIN_SIZE || active.width < MIN_SIZE) {
+		if (this.shouldReset(active)) {
 			// reset
 			Object.assign(active, { startX, startY, width, height });
 		}
+	}
+
+	protected shouldReset(active: LayerModel) {
+		if (active.height < MIN_SIZE || active.width < MIN_SIZE) {
+			// not to make it too small
+			return true;
+		}
+
+		if (active.startX < (MIN_SIZE - active.width) || active.startY < (MIN_SIZE - active.height)) {
+			// not to leave top / left borders
+			return true;
+		}
+
+		let base = this.baseService.active;
+
+		if (active.startX > (base.canvasWidth - MIN_SIZE) || active.startY > (base.canvasHeight - MIN_SIZE)) {
+			// not to leave right / bottom borders
+			return true;
+		}
+
+		return false;
 	}
 
 	protected rotate(active: LayerModel, angle: number) {

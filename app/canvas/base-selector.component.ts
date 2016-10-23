@@ -14,7 +14,7 @@ export class BaseSelectorComponent {
 	active: BaseModel;
 
 	@Output()
-	beacon = new EventEmitter<BaseModel>();
+	activateBeacon = new EventEmitter<BaseModel>();
 
 	changing: boolean = false;
 }

@@ -86,7 +86,7 @@ export class DrawerComponent implements AfterViewInit {
 			Math.min(base.canvasHeight, this.canvas.offsetHeight)
 		);
 
-		this.layerService.addLayer(layer);
+		this.layerService.add(layer);
 		this.layerService.active = layer;
 
 		this.router.navigate([{ outlets: { aux: null } }]);

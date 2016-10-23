@@ -2,7 +2,7 @@ import { BaseModel } from './base.model';
 
 export class MugBaseModel extends BaseModel {
 	get name(): string {
-		return 'Mug';
+		return 'mug';
 	}
 
 	get src(): string {

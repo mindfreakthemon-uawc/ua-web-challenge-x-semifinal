@@ -1,18 +1,21 @@
 base-selector-cmp(
 	'[bases]'='bases',
 	'[active]'='baseService.active',
-	'(beacon)'='baseService.active = $event'
+	'(activateBeacon)'='baseService.active = $event'
 )
 
 layer-selector-cmp(
 	'[layers]'='layers',
 	'[active]'='layerService.active',
-	'(beacon)'='layerService.active = $event'
+	'(activateBeacon)'='layerService.active = $event',
+	'(resetBeacon)'='layerService.reset($event)'
+	'(removeBeacon)'='layerService.remove($event)'
 )
 
 base-cmp(
 	'*ngIf'='baseService.active',
 	'[base]'='baseService.active',
+	'(outsideClickBeacon)'='layerService.active = null'
 	'(mousemove)'='transform($event)',
 	'(mouseup)'='clearFlags()'
 )

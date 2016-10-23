@@ -1,5 +1,32 @@
-.layer-item(
-	'*ngFor'='let layer of layers',
-	'(click)'='beacon.emit(layer)',
-	'[style.background-image]'='transform(layer.src)'
-)
+.layer-controls.text-xs-right
+	.tag.tag-warning.layer-shower(
+		'*ngIf'='!showing',
+		'(click)'='showing = true'
+	) show layers
+	.tag.tag-danger.layer-shower(
+		'*ngIf'='showing',
+		'(click)'='showing = false'
+	) hide layers
+
+.layer-items.m-t-1('*ngIf'='showing')
+	.media.layer-item.p-a-1('*ngIf'='!layers.length') no layers added
+
+	.media.layer-item.p-a-1(
+		'*ngFor'='let layer of layers'
+	)
+		.media-left
+			.media-object.layer-image(
+				'[style.background-image]'='transform(layer.src)',
+				'(click)'='activateBeacon.emit(layer)'
+			)
+		.media-body
+			.btn-group.btn-block.btn-group-sm
+				button.btn.btn-secondary front
+				button.btn.btn-secondary up
+				button.btn.btn-secondary down
+				button.btn.btn-secondary back
+			.btn-group.btn-block.btn-group-sm
+				button.btn.btn-primary('*ngIf'='active !== layer', '(click)'='activateBeacon.emit(layer)') activate
+				button.btn.btn-info('*ngIf'='active === layer', '(click)'='activateBeacon.emit(null)') deactivate
+				button.btn.btn-warning('(click)'='resetBeacon.emit(layer)') reset
+				button.btn.btn-danger('(click)'='removeBeacon.emit(layer)') remove

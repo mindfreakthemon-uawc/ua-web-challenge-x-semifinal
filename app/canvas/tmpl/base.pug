@@ -1,10 +1,10 @@
 .base-wrapper
 
-	img.fn-deactivate(
+	img(
 		'#image'='',
 		'[src]'='base.src',
 		'(dragstart)'='$event.preventDefault()',
-		'(click)'='layerService.active = null'
+		'(click)'='outsideClickBeacon.emit()'
 	)
 
 	.base-canvas(
@@ -12,6 +12,6 @@
 		'[style.width.px]'='base.canvasWidth * coefficient',
 		'[style.top.px]'='base.canvasY * coefficient',
 		'[style.left.px]'='base.canvasX * coefficient',
-		'(click)'='$event.target === $event.currentTarget ? (layerService.active = null) : null'
+		'(click)'='$event.target === $event.currentTarget ? outsideClickBeacon.emit() : null'
 	)
 		ng-content(select='layer-cmp')

@@ -2,7 +2,7 @@ import { BaseModel } from './base.model';
 
 export class ShirtBaseModel extends BaseModel {
 	get name(): string {
-		return 'T-Shirt';
+		return 't-shirt';
 	}
 
 	get src(): string {
