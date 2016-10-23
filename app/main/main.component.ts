@@ -3,6 +3,7 @@ import { BaseService } from '../canvas/services/base.service';
 import { LayerService } from '../canvas/services/layer.service';
 import { ShirtBaseModel } from '../canvas/models/shirt-base.model';
 import { MugBaseModel } from '../canvas/models/mug-base.model';
+import { LayerModel } from '../canvas/models/layer.model';
 
 @Component({
 	selector: 'main-component',
@@ -21,5 +22,7 @@ export class MainComponent implements AfterViewInit {
 		this.baseService.addBase(shirt);
 		this.baseService.addBase(mug);
 		this.baseService.active = shirt;
+
+		this.layerService.addLayer(new LayerModel('/build/statics/images/slowpoke.png', 0, 0, 200, 195))
 	}
 }

@@ -3,7 +3,6 @@ import { LayerService } from './services/layer.service';
 import { LayerModel } from './models/layer.model';
 import { BaseModel } from './models/base.model';
 import { BaseService } from './services/base.service';
-import { BaseComponent } from './base.component';
 import { LayerComponent } from './layer.component';
 
 export const MIN_SIZE = 50;
@@ -24,9 +23,6 @@ export class CanvasComponent implements AfterViewInit {
 	rotating: boolean = false;
 
 	resizing: string = null;
-
-	@ViewChild(BaseComponent)
-	baseComponent: BaseComponent;
 
 	@ViewChildren(LayerComponent)
 	layerComponents: QueryList<LayerComponent>;

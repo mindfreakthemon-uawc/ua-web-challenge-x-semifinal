@@ -19,7 +19,7 @@ base-cmp(
 	layer-cmp(
 		'*ngFor'='let layer of layers',
 		'[layer]'='layer',
-		'[coefficient]'='baseComponent.coefficient',
+		'[coefficient]'='baseService.coefficient',
 		'(resizeBeacon)'='resizing = $event',
 		'(dragBeacon)'='dragging = $event',
 		'(rotateBeacon)'='rotating = $event'
