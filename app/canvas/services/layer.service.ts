@@ -80,11 +80,22 @@ export class LayerService {
 		this.update();
 	}
 
-	zIndex(layer: LayerModel, index: number) {
-		let currentIndex = this.layers.indexOf(layer);
+	zIndex(layer: LayerModel) {
+		return this.layers.indexOf(layer);
+	}
+
+	position(layer: LayerModel, index: number = null) {
+		let currentIndex = this.zIndex(layer);
+		let newIndex = index;
+
+		if (index === -1 || index === 1) {
+			newIndex = Math.max(currentIndex + index, 0);
+		} else if (index === null) {
+			newIndex = this.layers.length;
+		}
 
 		this.layers.splice(currentIndex, 1);
-		this.layers.splice(index > currentIndex ? index - 1 : index, 0, layer);
+		this.layers.splice(newIndex, 0, layer);
 
 		this.update();
 	}

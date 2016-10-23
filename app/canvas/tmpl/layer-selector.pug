@@ -12,7 +12,7 @@
 	.media.layer-item.p-a-1('*ngIf'='!layers.length') no layers added
 
 	.media.layer-item.p-a-1(
-		'*ngFor'='let layer of layers'
+		'*ngFor'='let layer of layers.reverse()'
 	)
 		.media-left
 			.media-object.layer-image(
@@ -21,10 +21,10 @@
 			)
 		.media-body
 			.btn-group.btn-block.btn-group-sm
-				button.btn.btn-secondary front
-				button.btn.btn-secondary up
-				button.btn.btn-secondary down
-				button.btn.btn-secondary back
+				button.btn.btn-secondary('(click)'='frontBeacon.emit(layer)') front
+				button.btn.btn-secondary('(click)'='upBeacon.emit(layer)') up
+				button.btn.btn-secondary('(click)'='downBeacon.emit(layer)') down
+				button.btn.btn-secondary('(click)'='backBeacon.emit(layer)') back
 			.btn-group.btn-block.btn-group-sm
 				button.btn.btn-primary('*ngIf'='active !== layer', '(click)'='activateBeacon.emit(layer)') activate
 				button.btn.btn-info('*ngIf'='active === layer', '(click)'='activateBeacon.emit(null)') deactivate

@@ -9,7 +9,11 @@ layer-selector-cmp(
 	'[active]'='layerService.active',
 	'(activateBeacon)'='layerService.active = $event',
 	'(resetBeacon)'='layerService.reset($event)'
-	'(removeBeacon)'='layerService.remove($event)'
+	'(removeBeacon)'='layerService.remove($event)',
+	'(frontBeacon)'='layerService.position($event)',
+	'(upBeacon)'='layerService.position($event, 1)',
+	'(downBeacon)'='layerService.position($event, -1)',
+	'(backBeacon)'='layerService.position($event, 0)'
 )
 
 base-cmp(

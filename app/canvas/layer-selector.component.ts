@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { BaseModel } from './models/base.model';
 import { LayerModel } from './models/layer.model';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -17,13 +16,25 @@ export class LayerSelectorComponent {
 	active: LayerModel;
 
 	@Output()
-	activateBeacon = new EventEmitter<BaseModel>();
+	activateBeacon = new EventEmitter<LayerModel>();
 
 	@Output()
-	resetBeacon = new EventEmitter<BaseModel>();
+	resetBeacon = new EventEmitter<LayerModel>();
 
 	@Output()
-	removeBeacon = new EventEmitter<BaseModel>();
+	removeBeacon = new EventEmitter<LayerModel>();
+
+	@Output()
+	frontBeacon = new EventEmitter<LayerModel>();
+
+	@Output()
+	upBeacon = new EventEmitter<LayerModel>();
+
+	@Output()
+	downBeacon = new EventEmitter<LayerModel>();
+
+	@Output()
+	backBeacon = new EventEmitter<LayerModel>();
 
 	showing: boolean = false;
 
