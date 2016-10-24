@@ -30,3 +30,8 @@
 				button.btn.btn-info('*ngIf'='active === layer', '(click)'='activateBeacon.emit(null)') deactivate
 				button.btn.btn-warning('(click)'='resetBeacon.emit(layer)') reset
 				button.btn.btn-danger('(click)'='removeBeacon.emit(layer)') remove
+
+	.alert.alert-info.layer-hint.text-xs-center.m-t-1('*ngIf'='layers.length')
+		| you can move actived layer with arrow keys
+		br
+		| (with shift you can move even faster)
