@@ -107,6 +107,61 @@ export class LayerService {
 		this.center(layer);
 	}
 
+	rotate(layer: LayerModel, angle: number) {
+		layer.angle = angle;
+	}
+
+	drag(layer: LayerModel, movementX: number, movementY: number) {
+		layer.startX += movementX;
+		layer.startY += movementY;
+	}
+
+	resize(layer: LayerModel, type: string, movementX: number, movementY: number) {
+		switch (type) {
+			case 'top-left':
+				layer.startX += movementX;
+				layer.startY += movementY;
+				layer.width -= movementX;
+				layer.height -= movementY;
+				break;
+
+			case 'top-right':
+				layer.width += movementX;
+				layer.startY += movementY;
+				layer.height -= movementY;
+				break;
+
+			case 'middle-top':
+				layer.startY += movementY;
+				layer.height -= movementY;
+				break;
+
+			case 'middle-left':
+				layer.startX += movementX;
+				layer.width -= movementX;
+				break;
+
+			case 'middle-right':
+				layer.width += movementX;
+				break;
+
+			case 'middle-bottom':
+				layer.height += movementY;
+				break;
+
+			case 'bottom-left':
+				layer.startX += movementX;
+				layer.height += movementY;
+				layer.width -= movementX;
+				break;
+
+			case 'bottom-right':
+				layer.width += movementX;
+				layer.height += movementY;
+				break;
+		}
+	}
+
 	update() {
 		this.source.next(this.layers);
 	}

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, AfterViewInit, ViewChildren, QueryList, HostListener } from '@angular/core';
 import { LayerService } from './services/layer.service';
 import { LayerModel } from './models/layer.model';
 import { BaseModel } from './models/base.model';
@@ -27,6 +27,17 @@ export class CanvasComponent implements AfterViewInit {
 	@ViewChildren(LayerComponent)
 	layerComponents: QueryList<LayerComponent>;
 
+	get activeComponent() {
+		return this.layerComponents
+			.reduce<LayerComponent>((previous, current) => {
+				if (current.layer === this.layerService.active) {
+					return current;
+				} else {
+					return previous;
+				}
+			}, null);
+	}
+
 	constructor(public layerService: LayerService,
 		public baseService: BaseService) {
 	}
@@ -44,37 +55,91 @@ export class CanvasComponent implements AfterViewInit {
 		this.resizing = null;
 	}
 
-	transform(event: MouseEvent) {
+	@HostListener('document:keydown', ['$event'])
+	handleKeyDown(event: KeyboardEvent) {
+		let transform = true;
+		let movementX = 0;
+		let movementY = 0;
+		let coefficient = event.shiftKey ? 10 : 1;
+
+		switch (event.key) {
+			case 'ArrowLeft':
+				movementX = -1;
+				break;
+
+			case 'ArrowRight':
+				movementX = 1;
+				break;
+
+			case 'ArrowUp':
+				movementY = -1;
+				break;
+
+			case 'ArrowDown':
+				movementY = 1;
+				break;
+
+			default:
+				transform = false;
+		}
+
+		if (transform) {
+			event.preventDefault();
+
+			let dragging = this.dragging;
+
+			this.dragging = true;
+
+			this.transform(movementX * coefficient, movementY * coefficient);
+
+			this.dragging = dragging;
+		}
+	}
+
+	handleMouseMove(event: MouseEvent) {
+		if (this.dragging || this.rotating || this.resizing) {
+			this.transform(event.movementX, event.movementY, event.pageX, event.pageY);
+		}
+	}
+
+	transform(movementX: number, movementY: number, pageX: number = 0, pageY: number = 0) {
 		let active = this.layerService.active;
+		let component = this.activeComponent;
 
-		if (!active || !this.dragging && !this.rotating && !this.resizing) {
+		if (!active || !component) {
 			return;
 		}
 
-		let component = this.layerComponents
-			.reduce<LayerComponent>((previous, current) => current.layer === active ? current : previous, null);
-
-		if (!component) {
-			return;
-		}
-
-		let rect = component.image.nativeElement.getBoundingClientRect();
-		let centerX = window.scrollX + rect.left + (rect.width / 2);
-		let centerY = window.scrollY + rect.top + (rect.height / 2);
-		let angle = -Math.atan2(centerX - event.pageX, centerY - event.pageY);
 		let coefficient = this.baseService.coefficient;
-		let movementX = event.movementX / coefficient;
-		let movementY = event.movementY / coefficient;
+
 		let { startX, startY, width, height } = active;
 
-		this.resize(active, movementX, movementY);
-		this.drag(active, movementX, movementY);
-		this.rotate(active, angle);
+		if (this.resizing) {
+			this.layerService.resize(active, this.resizing, movementX / coefficient, movementY / coefficient);
+		}
+
+		if (this.dragging) {
+			this.layerService.drag(active, movementX / coefficient, movementY / coefficient);
+		}
+
+		if (this.rotating) {
+			let angle = this.angle(component, pageX, pageY);
+
+			this.layerService.rotate(active, angle);
+		}
 
 		if (this.shouldReset(active)) {
 			// reset
 			Object.assign(active, { startX, startY, width, height });
 		}
+	}
+
+	protected angle(component: LayerComponent, pageX: number, pageY: number) {
+		let rect = component.image.nativeElement.getBoundingClientRect();
+		let centerX = window.scrollX + rect.left + (rect.width / 2);
+		let centerY = window.scrollY + rect.top + (rect.height / 2);
+
+		return -Math.atan2(centerX - pageX, centerY - pageY);
 	}
 
 	protected shouldReset(active: LayerModel) {
@@ -96,64 +161,5 @@ export class CanvasComponent implements AfterViewInit {
 		}
 
 		return false;
-	}
-
-	protected rotate(active: LayerModel, angle: number) {
-		if (this.rotating) {
-			active.angle = angle;
-		}
-	}
-
-	protected drag(active: LayerModel, movementX: number, movementY: number) {
-		if (this.dragging) {
-			active.startX += movementX;
-			active.startY += movementY;
-		}
-	}
-
-	protected resize(active: LayerModel, movementX: number, movementY: number) {
-		switch (this.resizing) {
-			case 'top-left':
-				active.startX += movementX;
-				active.startY += movementY;
-				active.width -= movementX;
-				active.height -= movementY;
-				break;
-
-			case 'top-right':
-				active.width += movementX;
-				active.startY += movementY;
-				active.height -= movementY;
-				break;
-
-			case 'middle-top':
-				active.startY += movementY;
-				active.height -= movementY;
-				break;
-
-			case 'middle-left':
-				active.startX += movementX;
-				active.width -= movementX;
-				break;
-
-			case 'middle-right':
-				active.width += movementX;
-				break;
-
-			case 'middle-bottom':
-				active.height += movementY;
-				break;
-
-			case 'bottom-left':
-				active.startX += movementX;
-				active.height += movementY;
-				active.width -= movementX;
-				break;
-
-			case 'bottom-right':
-				active.width += movementX;
-				active.height += movementY;
-				break;
-		}
 	}
 }
