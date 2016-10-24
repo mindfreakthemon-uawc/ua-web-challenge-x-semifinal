@@ -1,8 +1,10 @@
 let gulp = require('gulp');
 let stylus = require('gulp-stylus');
 let connect = require('gulp-connect');
+let postcss = require('gulp-postcss');
 let plumber = require('gulp-plumber');
 let del = require('del');
+let autoprefixer = require('autoprefixer');
 let rename = require('gulp-rename');
 
 const STYLES_SRC_GLOB = 'app/**/*.styl';
@@ -18,6 +20,9 @@ gulp.task('styles', ['styles:clear'], () => {
 		.pipe(rename((path) => {
 			path.dirname = path.dirname.replace(/(^|\/)styles/, '');
 		}))
+		.pipe(postcss([
+			autoprefixer({ browsers: ['last 2 versions'] })
+		]))
 		.pipe(gulp.dest(STYLES_OUT_DIR))
 		.pipe(connect.reload());
 });
