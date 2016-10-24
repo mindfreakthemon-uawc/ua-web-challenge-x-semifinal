@@ -12,28 +12,24 @@ export class BaseComponent implements OnInit {
 	base: BaseModel;
 
 	@ViewChild('image')
-	image: ElementRef;
+	imageRef: ElementRef;
 
 	@Output()
 	outsideClickBeacon = new EventEmitter();
 
-	constructor(public baseService: BaseService) {
-	}
+	@Output()
+	coefficientBeacon = new EventEmitter<number>();
 
 	@HostListener('window:resize')
 	handleResize() {
-		this.calculate();
+		this.coefficientBeacon.emit(this.coefficient);
 	}
 
 	ngOnInit() {
-		this.calculate();
-	}
-
-	calculate() {
-		this.baseService.coefficient = this.coefficient;
+		this.coefficientBeacon.emit(this.coefficient);
 	}
 
 	get coefficient() {
-		return this.image.nativeElement.width / this.base.width;
+		return this.imageRef.nativeElement.width / this.base.width;
 	}
 }

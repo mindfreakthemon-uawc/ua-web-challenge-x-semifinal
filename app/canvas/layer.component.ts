@@ -18,6 +18,9 @@ export class LayerComponent {
 	@Input()
 	coefficient: number = 1;
 
+	@Input()
+	active: boolean = false;
+
 	@Output()
 	resizeBeacon = new EventEmitter<string>();
 
@@ -27,17 +30,7 @@ export class LayerComponent {
 	@Output()
 	rotateBeacon = new EventEmitter<boolean>();
 
-	get active() {
-		return this.layerService.active === this.layer;
-	}
-
-	constructor(public layerService: LayerService,
-		public sanitizer: DomSanitizer) {
-	}
-
-	@HostListener('mousedown')
-	handleMouseDown() {
-		this.layerService.active = this.layer;
+	constructor(public sanitizer: DomSanitizer) {
 	}
 
 	transform(url: string): string {

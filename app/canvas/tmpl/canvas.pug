@@ -19,7 +19,8 @@ layer-selector-cmp(
 base-cmp(
 	'*ngIf'='baseService.active',
 	'[base]'='baseService.active',
-	'(outsideClickBeacon)'='layerService.active = null'
+	'(outsideClickBeacon)'='layerService.active = null',
+	'(coefficientBeacon)'='this.baseService.coefficient = $event',
 	'(mousemove)'='handleMouseMove($event)',
 	'(mouseup)'='clearFlags()'
 )
@@ -27,6 +28,8 @@ base-cmp(
 		'*ngFor'='let layer of layers',
 		'[layer]'='layer',
 		'[coefficient]'='baseService.coefficient',
+		'[active]'='layerService.active === layer',
+		'(mousedown)'='layerService.active = layer',
 		'(resizeBeacon)'='resizing = $event',
 		'(dragBeacon)'='dragging = $event',
 		'(rotateBeacon)'='rotating = $event'

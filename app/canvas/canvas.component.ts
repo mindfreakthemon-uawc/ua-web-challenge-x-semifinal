@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChildren, QueryList, HostListener } from '@angular/core';
+import { Component, ViewChildren, QueryList, HostListener, OnInit } from '@angular/core';
 import { LayerService } from './services/layer.service';
 import { LayerModel } from './models/layer.model';
 import { BaseModel } from './models/base.model';
@@ -13,7 +13,7 @@ export const MIN_SIZE = 50;
 	styleUrls: ['build/styles/canvas/canvas.css']
 
 })
-export class CanvasComponent implements AfterViewInit {
+export class CanvasComponent implements OnInit {
 	layers: LayerModel[] = [];
 
 	bases: BaseModel[] = [];
@@ -42,7 +42,7 @@ export class CanvasComponent implements AfterViewInit {
 		public baseService: BaseService) {
 	}
 
-	ngAfterViewInit() {
+	ngOnInit() {
 		this.baseService.beacon
 			.subscribe((bases) => this.bases = bases);
 		this.layerService.beacon
