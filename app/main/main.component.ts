@@ -23,6 +23,6 @@ export class MainComponent implements AfterViewInit {
 		this.baseService.add(mug);
 		this.baseService.active = shirt;
 
-		this.layerService.add(new LayerModel('/build/statics/images/slowpoke.png', 0, 0, 200, 195))
+		this.layerService.upload('/build/statics/images/slowpoke.png');
 	}
 }

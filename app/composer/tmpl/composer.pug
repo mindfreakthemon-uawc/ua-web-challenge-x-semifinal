@@ -1,0 +1,13 @@
+.container.card.p-a-1
+	.card-block
+		h4.card-title download image
+
+		.alert.alert-info('*ngIf'='loading') loading...
+
+		.row.p-a-1('*ngIf'='!loading')
+			.col-xs-6.offset-xs-3.text-xs-center
+				img('[src]'='url')
+				a.btn.btn-primary.btn-lg.btn-block.m-t-1(download='print.png', '[href]'='url') download
+
+		.row
+			a.btn.btn-warning.btn-block([routerLink]="['', { outlets: { aux: null } }]") close composer

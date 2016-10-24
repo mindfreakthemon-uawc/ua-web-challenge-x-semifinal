@@ -4,6 +4,6 @@ nav.nav
 			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['upload'] } }]") add image
 			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['draw'] } }]") draw image
 		.btn-group
-			a.btn.btn-primary('href'='#') download image
+			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['compose'] } }]") download image
 
 canvas-cmp

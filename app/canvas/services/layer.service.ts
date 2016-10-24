@@ -28,7 +28,7 @@ export class LayerService {
 			let image = new Image();
 
 			image.addEventListener('load', () => {
-				let layer = new LayerModel(url, 0, 0, image.width, image.height);
+				let layer = new LayerModel(url, image, 0, 0, image.width, image.height);
 
 				this.contain(layer);
 				this.center(layer);
