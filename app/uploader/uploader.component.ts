@@ -34,6 +34,10 @@ export class UploaderComponent {
 	}
 
 	handleRemoteUrlPaste(event: ClipboardEvent) {
+		if (!event.clipboardData || !event.clipboardData.items) {
+			return;
+		}
+
 		let items = event.clipboardData.items;
 
 		if (items.length) {

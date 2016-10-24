@@ -14,7 +14,7 @@ export class LayerService {
 
 	active: LayerModel;
 
-	constructor(public baseService: BaseService) {
+	constructor(protected baseService: BaseService) {
 	}
 
 	add(layer: LayerModel) {
@@ -27,6 +27,7 @@ export class LayerService {
 		return new Promise((resolve, reject) => {
 			let image = new Image();
 
+			image.setAttribute('crossOrigin', 'anonymous');
 			image.addEventListener('load', () => {
 				let layer = new LayerModel(url, image, 0, 0, image.width, image.height);
 

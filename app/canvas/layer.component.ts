@@ -30,7 +30,7 @@ export class LayerComponent {
 	@Output()
 	rotateBeacon = new EventEmitter<boolean>();
 
-	constructor(public sanitizer: DomSanitizer) {
+	constructor(protected sanitizer: DomSanitizer) {
 	}
 
 	transform(url: string): string {

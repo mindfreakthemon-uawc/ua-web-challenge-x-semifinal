@@ -38,7 +38,7 @@ export class LayerSelectorComponent {
 
 	showing: boolean = false;
 
-	constructor(private sanitizer: DomSanitizer) {
+	constructor(protected sanitizer: DomSanitizer) {
 	}
 
 	transform(url: string): string {

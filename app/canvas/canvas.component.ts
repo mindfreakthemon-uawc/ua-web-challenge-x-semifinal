@@ -27,9 +27,9 @@ export class CanvasComponent implements OnInit {
 	@ViewChildren(LayerComponent)
 	layerComponents: QueryList<LayerComponent>;
 
-	get activeComponent() {
+	get activeComponent(): LayerComponent {
 		return this.layerComponents
-			.reduce<LayerComponent>((previous, current) => {
+			.reduce((previous, current) => {
 				if (current.layer === this.layerService.active) {
 					return current;
 				} else {
@@ -38,8 +38,10 @@ export class CanvasComponent implements OnInit {
 			}, null);
 	}
 
-	constructor(public layerService: LayerService,
-		public baseService: BaseService) {
+	protected previousEvent: MouseEvent;
+
+	constructor(protected layerService: LayerService,
+		protected baseService: BaseService) {
 	}
 
 	ngOnInit() {
@@ -53,6 +55,8 @@ export class CanvasComponent implements OnInit {
 		this.dragging = false;
 		this.rotating = false;
 		this.resizing = null;
+
+		this.previousEvent = null;
 	}
 
 	@HostListener('document:keydown', ['$event'])
@@ -98,6 +102,8 @@ export class CanvasComponent implements OnInit {
 
 	handleMouseMove(event: MouseEvent) {
 		if (this.dragging || this.rotating || this.resizing) {
+			this.ensureMovement(event);
+
 			this.transform(event.movementX, event.movementY, event.pageX, event.pageY);
 		}
 	}
@@ -123,7 +129,7 @@ export class CanvasComponent implements OnInit {
 		}
 
 		if (this.rotating) {
-			let angle = this.angle(component, pageX, pageY);
+			let angle = this.calculateComponentAngle(component, pageX, pageY);
 
 			this.layerService.rotate(active, angle);
 		}
@@ -134,7 +140,7 @@ export class CanvasComponent implements OnInit {
 		}
 	}
 
-	protected angle(component: LayerComponent, pageX: number, pageY: number) {
+	protected calculateComponentAngle(component: LayerComponent, pageX: number, pageY: number) {
 		let rect = component.image.nativeElement.getBoundingClientRect();
 		let centerX = window.scrollX + rect.left + (rect.width / 2);
 		let centerY = window.scrollY + rect.top + (rect.height / 2);
@@ -155,11 +161,23 @@ export class CanvasComponent implements OnInit {
 
 		let base = this.baseService.active;
 
-		if (active.startX > (base.canvasWidth - MIN_SIZE) || active.startY > (base.canvasHeight - MIN_SIZE)) {
-			// not to leave right / bottom borders
-			return true;
+		// not to leave right / bottom borders
+		return active.startX > (base.canvasWidth - MIN_SIZE) || active.startY > (base.canvasHeight - MIN_SIZE);
+	}
+
+	/**
+	 * safari does not know movementX / movementY. #hacks4lyfe
+	 */
+	protected ensureMovement(event: MouseEvent) {
+		if ('movementX' in event) {
+			return;
 		}
 
-		return false;
+		Object.assign(event, {
+			movementX: this.previousEvent ? event.screenX - this.previousEvent.screenX : 0,
+			movementY: this.previousEvent ? event.screenY - this.previousEvent.screenY : 0
+		});
+
+		this.previousEvent = event;
 	}
 }

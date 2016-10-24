@@ -15,7 +15,11 @@
 
 			.form-group
 				label from internets:
-				input.form-control(type='url', '(change)'='handleRemoteUrl($event)', '(paste)'='handleRemoteUrlPaste($event)')
+				.row
+					.col-xs-9
+						input.form-control(type='url', '(change)'='handleRemoteUrl($event)', '(paste)'='handleRemoteUrlPaste($event)')
+					.col-xs-3
+						button.btn.btn-block.btn-secondary(type='button') upload
 
 			.form-group
 				label from gallery:
