@@ -1,12 +1,14 @@
 let gulp = require('gulp');
 let stylus = require('gulp-stylus');
-let plumber = require('gulp-plumber');
 let connect = require('gulp-connect');
-let concat = require('gulp-concat');
+let postcss = require('gulp-postcss');
+let plumber = require('gulp-plumber');
 let del = require('del');
+let autoprefixer = require('autoprefixer');
 
 const STYLUS_SRC_GLOB = 'assets/styles/**/*.styl';
 const STYLUS_OUT_DIR = 'build/css';
+const STYLUS_AUTOPREFIXER = { browsers: ['last 2 versions'] };
 
 /**
  * Compiles each styl file and places it in css dir.
@@ -17,6 +19,9 @@ gulp.task('css', ['css:clear'], () => {
 		.pipe(stylus({
 			pretty: true
 		}))
+		.pipe(postcss([
+			autoprefixer(STYLUS_AUTOPREFIXER)
+		]))
 		.pipe(gulp.dest(STYLUS_OUT_DIR))
 		.pipe(connect.reload());
 });
@@ -36,6 +41,9 @@ gulp.task('css:bundle', ['css:clear'], () => {
 				})
 			}
 		}))
+		.pipe(postcss([
+			autoprefixer(STYLUS_AUTOPREFIXER)
+		]))
 		.pipe(concat('bundle.min.css'))
 		.pipe(gulp.dest(STYLUS_OUT_DIR))
 		.pipe(connect.reload());

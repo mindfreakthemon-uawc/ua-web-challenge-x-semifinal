@@ -9,6 +9,7 @@ let rename = require('gulp-rename');
 
 const STYLES_SRC_GLOB = 'app/**/*.styl';
 const STYLES_OUT_DIR = 'build/styles';
+const STYLUS_AUTOPREFIXER = { browsers: ['last 2 versions'] };
 
 /**
  * Compiles templates.
@@ -21,7 +22,7 @@ gulp.task('styles', ['styles:clear'], () => {
 			path.dirname = path.dirname.replace(/(^|\/)styles/, '');
 		}))
 		.pipe(postcss([
-			autoprefixer({ browsers: ['last 2 versions'] })
+			autoprefixer(STYLUS_AUTOPREFIXER)
 		]))
 		.pipe(gulp.dest(STYLES_OUT_DIR))
 		.pipe(connect.reload());
@@ -32,6 +33,3 @@ gulp.task('styles:watch', () => gulp.watch(STYLES_SRC_GLOB, ['styles']));
 gulp.task('styles:clear', () => {
 	return del([STYLES_OUT_DIR]);
 });
-
-
-
