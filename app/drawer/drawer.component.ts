@@ -74,7 +74,7 @@ export class DrawerComponent implements AfterViewInit {
 	}
 
 	add() {
-		this.layerService.upload(this.canvas.toDataURL())
+		this.layerService.upload(this.trim(this.canvas).toDataURL())
 			.then(() => this.close());
 	}
 
@@ -102,6 +102,52 @@ export class DrawerComponent implements AfterViewInit {
 			});
 
 		this.traceIndex = this.traces.length - 1;
+	}
+
+	protected trim(canvas) {
+		let { width, height } = canvas;
+		let context = canvas.getContext('2d');
+		let imageData = context.getImageData(0, 0, width, height);
+
+		let topLeftCorner = { x: width, y: height };
+		let bottomRightCorner = { x: -1, y: -1 };
+
+		for (let y = 0; y < height; y++) {
+			for (let x = 0; x < width; x++) {
+				let pixelPosition = (x * 4) + (y * width * 4);
+
+				if (imageData.data[pixelPosition + 3] > 0) {
+					if (x < topLeftCorner.x) {
+						topLeftCorner.x = x;
+					}
+
+					if (y < topLeftCorner.y) {
+						topLeftCorner.y = y;
+					}
+
+					if (x > bottomRightCorner.x) {
+						bottomRightCorner.x = x;
+					}
+
+					if (y > bottomRightCorner.y) {
+						bottomRightCorner.y = y;
+					}
+				}
+			}
+		}
+
+		width = bottomRightCorner.x - topLeftCorner.x;
+		height = bottomRightCorner.y - topLeftCorner.y;
+
+		let trimmedCanvas = document.createElement('canvas');
+		let trimmedContext = trimmedCanvas.getContext('2d');
+		let trimmedData = context.getImageData(topLeftCorner.x, topLeftCorner.y, width, height);
+
+		trimmedCanvas.width = width;
+		trimmedCanvas.height = height;
+		trimmedContext.putImageData(trimmedData, 0, 0);
+
+		return trimmedCanvas;
 	}
 
 	protected close() {
