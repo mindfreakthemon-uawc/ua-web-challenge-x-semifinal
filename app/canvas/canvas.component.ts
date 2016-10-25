@@ -149,7 +149,7 @@ export class CanvasComponent implements OnInit {
 	}
 
 	protected shouldReset(active: LayerModel) {
-		if (active.height < MIN_SIZE || active.width < MIN_SIZE) {
+		if (active.height < 0 || active.width < 0) {
 			// not to make it too small
 			return true;
 		}
