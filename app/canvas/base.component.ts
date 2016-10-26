@@ -11,8 +11,8 @@ export class BaseComponent implements OnInit {
 	@Input()
 	base: BaseModel;
 
-	@ViewChild('image')
-	imageRef: ElementRef;
+	@ViewChild('wrapper')
+	wrapper: ElementRef;
 
 	@Output()
 	outsideClickBeacon = new EventEmitter();
@@ -30,6 +30,6 @@ export class BaseComponent implements OnInit {
 	}
 
 	get coefficient() {
-		return this.imageRef.nativeElement.width / this.base.width;
+		return this.wrapper.nativeElement.offsetWidth / this.base.width;
 	}
 }
