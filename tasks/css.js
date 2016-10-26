@@ -3,6 +3,7 @@ let stylus = require('gulp-stylus');
 let connect = require('gulp-connect');
 let postcss = require('gulp-postcss');
 let plumber = require('gulp-plumber');
+let concat = require('gulp-concat');
 let del = require('del');
 let autoprefixer = require('autoprefixer');
 
