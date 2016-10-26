@@ -4,7 +4,9 @@
 
 		.alert.alert-info('*ngIf'='loading') loading...
 
-		.row.p-a-1('*ngIf'='!loading')
+		.alert.alert-danger('*ngIf'='!layerService.layers.length') please add some images...
+
+		.row.p-a-1('*ngIf'='!loading && layerService.layers.length')
 			.col-xs-6.offset-xs-3.text-xs-center
 				img('[src]'='url')
 				a.btn.btn-primary.btn-lg.btn-block.m-t-1(download='print.png', '[href]'='url') download

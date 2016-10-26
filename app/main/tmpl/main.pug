@@ -4,6 +4,6 @@ nav.nav
 			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['upload'] } }]") add image
 			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['draw'] } }]") draw image
 		.btn-group
-			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['compose'] } }]") download image
+			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['compose'] } }]", '[class.disabled]'='!layerService.layers.length') download image
 
 canvas-cmp

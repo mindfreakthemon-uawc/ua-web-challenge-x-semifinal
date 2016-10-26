@@ -6,7 +6,7 @@ export class MugBaseModel extends BaseModel {
 	}
 
 	get src(): string {
-		return '/build/statics/images/mug.jpg';
+		return '/build/statics/images/base/mug.png';
 	}
 
 	get width(): number {
@@ -18,18 +18,18 @@ export class MugBaseModel extends BaseModel {
 	}
 
 	get canvasX(): number {
-		return 270;
+		return 75;
 	}
 
 	get canvasY(): number {
-		return 200;
+		return 150;
 	}
 
 	get canvasWidth(): number {
-		return 480;
+		return 500;
 	}
 
 	get canvasHeight(): number {
-		return 480;
+		return 600;
 	}
 }

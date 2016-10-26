@@ -12,6 +12,14 @@ export class UploaderComponent {
 
 	loading: boolean = false;
 
+	imagesPath: string = '/build/statics/images/gallery/';
+
+	images: string[] = [
+		'slowpoke.png',
+		'dev-logo.png',
+		'ua-logo.png'
+	];
+
 	constructor(public layerService: LayerService,
 		private router: Router) {
 	}
@@ -58,6 +66,15 @@ export class UploaderComponent {
 
 		this.layerService
 			.upload(input.value)
+			.then(() => this.close())
+			.catch((error) => this.handleError(error));
+
+		this.loading = true;
+	}
+
+	handleGalleryUrl(image: string) {
+		this.layerService
+			.upload(image)
 			.then(() => this.close())
 			.catch((error) => this.handleError(error));
 

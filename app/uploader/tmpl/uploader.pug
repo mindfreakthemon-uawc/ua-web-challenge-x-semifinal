@@ -20,11 +20,12 @@
 						input.form-control(type='url', '(change)'='handleRemoteUrl($event)', '(paste)'='handleRemoteUrlPaste($event)')
 					.col-xs-3
 						button.btn.btn-block.btn-secondary(type='button') upload
+			p.form-text.text-muted you can use only jpg or png images.
 
 			.form-group
 				label from gallery:
-
-			p.form-text.text-muted you can use only jpg or png images.
+				.row.gallery-row
+					img.m-x-1('*ngFor'='let image of images', '[src]'='imagesPath + image', '(click)'='handleGalleryUrl(imagesPath + image)')
 
 		.row
 			a.btn.btn-warning.btn-block([routerLink]="['', { outlets: { aux: null } }]") close upload

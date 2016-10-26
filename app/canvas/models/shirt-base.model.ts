@@ -6,7 +6,7 @@ export class ShirtBaseModel extends BaseModel {
 	}
 
 	get src(): string {
-		return '/build/statics/images/shirt.png';
+		return '/build/statics/images/base/shirt.png';
 	}
 
 	get width(): number {
