@@ -21,7 +21,7 @@ base-cmp(
 	'*ngIf'='baseService.active',
 	'[base]'='baseService.active',
 	'(outsideClickBeacon)'='layerService.active = null',
-	'(coefficientBeacon)'='this.baseService.coefficient = $event',
+	'(coefficientBeacon)'='baseService.coefficient = $event',
 	'(mousemove)'='handleMouseMove($event)',
 	'(mouseup)'='clearFlags()'
 )

@@ -1,4 +1,7 @@
-import { Component, Input, ViewChild, ElementRef, HostListener, OnInit, EventEmitter, Output } from '@angular/core';
+import {
+	Component, Input, ViewChild, ElementRef, HostListener, OnInit, EventEmitter, Output,
+	SimpleChanges, OnChanges
+} from '@angular/core';
 import { BaseModel } from './models/base.model';
 import { BaseService } from './services/base.service';
 
@@ -7,7 +10,7 @@ import { BaseService } from './services/base.service';
 	templateUrl: 'build/templates/canvas/base.html',
 	styleUrls: ['build/styles/canvas/base.css']
 })
-export class BaseComponent implements OnInit {
+export class BaseComponent implements OnInit, OnChanges {
 	@Input()
 	base: BaseModel;
 
@@ -23,6 +26,12 @@ export class BaseComponent implements OnInit {
 	@HostListener('window:resize')
 	handleResize() {
 		this.coefficientBeacon.emit(this.coefficient);
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
+		if (changes.hasOwnProperty('base')) {
+			this.coefficientBeacon.emit(this.coefficient);
+		}
 	}
 
 	ngOnInit() {

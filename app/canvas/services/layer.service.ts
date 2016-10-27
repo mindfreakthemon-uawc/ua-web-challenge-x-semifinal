@@ -58,10 +58,10 @@ export class LayerService {
 			let imageMax = Math.max(layer.width, layer.height);
 
 			if (imageMax > canvasMin) {
-				let coefficient = canvasMin / imageMax;
+				let containCoefficient = canvasMin / imageMax;
 
-				layer.width *= coefficient;
-				layer.height *= coefficient
+				layer.width *= containCoefficient;
+				layer.height *= containCoefficient
 			}
 		}
 	}
