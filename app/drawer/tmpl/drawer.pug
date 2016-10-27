@@ -2,7 +2,9 @@
 	.card-block
 		h4.card-title draw image
 
-		form.form-inline
+		.alert.alert-danger('*ngIf'='layerService.isAtLimit') you cannot add more images...
+
+		form.form-inline('[hidden]'='layerService.isAtLimit')
 			.row
 				.col-md-9
 					canvas(
@@ -25,9 +27,11 @@
 
 
 			.row.m-y-1
-				.col-md-4
+				.col-md-6
 					button.btn.btn-primary.btn-block(type='button', '(click)'='add()') add image
-				.col-md-4
+				.col-md-6
 					button.btn.btn-danger.btn-block(type='button', '(click)'='clear()') clear canvas
-				.col-md-4
-					a.btn.btn-warning.btn-block([routerLink]="['', { outlets: { aux: null } }]") close drawer
+
+		.row
+			a.btn.btn-warning.btn-block([routerLink]="['', { outlets: { aux: null } }]") close drawer
+

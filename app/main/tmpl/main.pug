@@ -1,8 +1,14 @@
 nav.nav
 	.row.p-a-1.text-xs-center
 		.btn-group
-			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['upload'] } }]") add image
-			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['draw'] } }]") draw image
+			a.btn.btn-primary(
+				'[routerLink]'="[{ outlets: { 'aux': ['upload'] } }]",
+				'[class.disabled]'='layerService.isAtLimit'
+			) add image
+			a.btn.btn-primary(
+				'[routerLink]'="[{ outlets: { 'aux': ['draw'] } }]",
+				'[class.disabled]'='layerService.isAtLimit'
+			) draw image
 		.btn-group
 			a.btn.btn-primary([routerLink]="[{ outlets: { 'aux': ['compose'] } }]", '[class.disabled]'='!layerService.layers.length') download image
 

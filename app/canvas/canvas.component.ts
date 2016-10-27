@@ -13,11 +13,7 @@ export const MIN_SIZE = 50;
 	styleUrls: ['build/styles/canvas/canvas.css']
 
 })
-export class CanvasComponent implements OnInit {
-	layers: LayerModel[] = [];
-
-	bases: BaseModel[] = [];
-
+export class CanvasComponent {
 	dragging: boolean = false;
 
 	rotating: boolean = false;
@@ -42,13 +38,6 @@ export class CanvasComponent implements OnInit {
 
 	constructor(protected layerService: LayerService,
 		protected baseService: BaseService) {
-	}
-
-	ngOnInit() {
-		this.baseService.beacon
-			.subscribe((bases) => this.bases = bases);
-		this.layerService.beacon
-			.subscribe((layers) => this.layers = layers);
 	}
 
 	clearFlags() {

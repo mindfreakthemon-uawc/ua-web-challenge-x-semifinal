@@ -1,7 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { LayerService } from '../canvas/services/layer.service';
-import { Router } from '@angular/router';
-import { LayerModel } from '../canvas/models/layer.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BaseService } from '../canvas/services/base.service';
 
@@ -11,8 +9,6 @@ import { BaseService } from '../canvas/services/base.service';
 	styleUrls: ['build/styles/composer/composer.css']
 })
 export class ComposerComponent implements OnInit {
-	layers: LayerModel[] = [];
-
 	loading: boolean = true;
 
 	url: string;
@@ -20,17 +16,11 @@ export class ComposerComponent implements OnInit {
 	constructor(public layerService: LayerService,
 		public baseService: BaseService,
 		private ngZone: NgZone,
-		private sanitizer: DomSanitizer,
-		private router: Router) {
+		private sanitizer: DomSanitizer) {
 	}
 
 	ngOnInit() {
-		this.layerService.beacon
-			.subscribe((layers) => {
-				this.layers = layers;
-
-				this.ngZone.run(() => this.compose());
-			});
+		this.ngZone.run(() => this.compose());
 	}
 
 	ngOnDestroy() {
@@ -46,7 +36,7 @@ export class ComposerComponent implements OnInit {
 		canvas.width = this.baseService.active.canvasWidth;
 		canvas.height = this.baseService.active.canvasHeight;
 
-		this.layers
+		this.layerService.layers
 			.forEach((layer) => {
 				context.save();
 				context.translate(layer.centerX, layer.centerY);
@@ -65,9 +55,5 @@ export class ComposerComponent implements OnInit {
 				this.loading = false;
 			})
 		});
-	}
-
-	protected close() {
-		this.router.navigate([{ outlets: { aux: null } }]);
 	}
 }

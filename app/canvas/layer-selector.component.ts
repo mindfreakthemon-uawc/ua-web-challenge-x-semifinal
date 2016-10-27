@@ -13,6 +13,9 @@ export class LayerSelectorComponent {
 	layers: LayerModel[] = [];
 
 	@Input()
+	maxLayers: number = 1;
+
+	@Input()
 	active: LayerModel;
 
 	@Output()

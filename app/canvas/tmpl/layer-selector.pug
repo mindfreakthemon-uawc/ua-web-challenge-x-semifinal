@@ -8,6 +8,12 @@
 		'(click)'='showing = false'
 	) hide layers
 
+	.tag(
+		'[class.tag-info]'='layers.length < maxLayers * 0.75',
+		'[class.tag-warning]'='layers.length >= maxLayers * 0.75 && layers.length < maxLayers * 0.9',
+		'[class.tag-danger]'='layers.length >= maxLayers * 0.9',
+	) {{layers.length}} / {{maxLayers}}
+
 .layer-items.m-t-1('*ngIf'='showing')
 	.media.layer-item.p-a-1('*ngIf'='!layers.length') no layers added
 

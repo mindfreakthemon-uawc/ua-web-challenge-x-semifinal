@@ -1,18 +1,21 @@
 import { LayerModel } from '../models/layer.model';
-import { ReplaySubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { BaseModel } from '../models/base.model';
 import { BaseService } from './base.service';
+
+export const MAX_LAYERS = 10;
 
 @Injectable()
 export class LayerService {
+
+	maxLayers: number = MAX_LAYERS;
+
 	layers: LayerModel[] = [];
 
-	source = new ReplaySubject<LayerModel[]>();
-
-	beacon = this.source.asObservable();
-
 	active: LayerModel;
+
+	get isAtLimit(): boolean {
+		return this.layers.length >= MAX_LAYERS;
+	}
 
 	constructor(protected baseService: BaseService) {
 	}
@@ -20,7 +23,6 @@ export class LayerService {
 	add(layer: LayerModel) {
 		this.layers.push(layer);
 		this.center(layer);
-		this.update();
 	}
 
 	upload(url: string): Promise<any> {
@@ -77,8 +79,6 @@ export class LayerService {
 		let currentIndex = this.layers.indexOf(layer);
 
 		this.layers.splice(currentIndex, 1);
-
-		this.update();
 	}
 
 	zIndex(layer: LayerModel) {
@@ -97,8 +97,6 @@ export class LayerService {
 
 		this.layers.splice(currentIndex, 1);
 		this.layers.splice(newIndex, 0, layer);
-
-		this.update();
 	}
 
 	reset(layer: LayerModel) {
@@ -161,9 +159,5 @@ export class LayerService {
 				layer.height += movementY;
 				break;
 		}
-	}
-
-	update() {
-		this.source.next(this.layers);
 	}
 }

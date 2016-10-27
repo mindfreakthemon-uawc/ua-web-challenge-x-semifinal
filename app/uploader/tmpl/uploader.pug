@@ -7,8 +7,9 @@
 
 		.alert.alert-info('*ngIf'='loading') loading...
 
-		form('*ngIf'='!loading')
+		.alert.alert-danger('*ngIf'='layerService.isAtLimit') you cannot add more images...
 
+		form('[hidden]'='loading || layerService.isAtLimit')
 			.form-group
 				label from your computer:
 				input.form-control(type='file', '(change)'='handleFileSelect($event)', accept='.jpg,.png')
