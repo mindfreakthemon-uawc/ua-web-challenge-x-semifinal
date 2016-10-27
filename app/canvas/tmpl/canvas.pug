@@ -1,7 +1,7 @@
 base-selector-cmp(
 	'[bases]'='baseService.bases',
 	'[active]'='baseService.active',
-	'(activateBeacon)'='baseService.active = $event'
+	'(activateBeacon)'='baseService.active = $event; layerService.resetAll()'
 )
 
 layer-selector-cmp(

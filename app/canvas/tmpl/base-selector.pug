@@ -10,7 +10,10 @@
 	) hide
 
 .base-items.m-t-1('*ngIf'='changing')
-	.base-item(
+	.alert.alert-warning.base-hint.text-xs-center.m-t-1
+		| layers' positions will be reset on change!
+
+	.base-item.m-t-1(
 		'*ngFor'='let base of bases',
 		'[class.active]'='base === active',
 		'(click)'='activateBeacon.emit(base); changing = false',

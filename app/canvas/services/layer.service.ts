@@ -106,6 +106,10 @@ export class LayerService {
 		this.center(layer);
 	}
 
+	resetAll() {
+		this.layers.forEach((layer) => this.reset(layer));
+	}
+
 	rotate(layer: LayerModel, angle: number) {
 		layer.angle = angle;
 	}
