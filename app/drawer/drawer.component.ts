@@ -50,6 +50,13 @@ export class DrawerComponent implements AfterViewInit {
 		this.context.lineJoin = 'round';
 	}
 
+	init(event: MouseEvent) {
+		this.drawing = true;
+		this.traceIndex = this.traces.length;
+
+		this.draw(event, true);
+	}
+
 	draw(event: MouseEvent, initial: boolean = false) {
 		if (!this.drawing) {
 			return;

@@ -9,7 +9,7 @@
 						'#canvasRef'='',
 						'[width]'='canvasRef.offsetWidth',
 						'[height]'='canvasRef.offsetHeight',
-						'(mousedown)'='drawing = true; draw($event, true)',
+						'(mousedown)'='init($event)',
 						'(mouseleave)'='drawing = false',
 						'(mouseup)'='drawing = false',
 						'(mousemove)'='draw($event)',
