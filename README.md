@@ -5,7 +5,7 @@
 
 ### Making changes
 * `npm install` project
-* run `gulp` to build dev project
+* run `gulp` to build dev version / run `gulp dev:prod` to build prod version
 
 ### Supported features
 * picture add
@@ -15,12 +15,11 @@
 * move image on canvas
     * with mouse click-and-drag
     * with keyboard arrow keys
-* rotate image on canvas
-    * with rotate control element
-* scale / resize
-    * with resize control element
-* drawing own layer via separate canvas
-* z-index change
-* image export
-* layer remove
+* rotate image on canvas with rotate control element
+* scale / resize with resize control elements
+* drawing custom layer via separate canvas
+* z-index change (to front, up, down, to back)
+* image export (as png)
+* layer removal
 * layer limit (10)
+* supports various screen resolutions (responsive)
