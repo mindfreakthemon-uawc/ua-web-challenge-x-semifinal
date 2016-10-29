@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { LayerService } from '../canvas/services/layer.service';
 import { Router } from '@angular/router';
 
@@ -21,12 +21,15 @@ export class UploaderComponent {
 	];
 
 	constructor(public layerService: LayerService,
+		private changeDetectorRef: ChangeDetectorRef,
 		private router: Router) {
 	}
 
 	handleError(error: string) {
 		this.error = error;
 		this.loading = false;
+
+		this.changeDetectorRef.detectChanges();
 	}
 
 	handleFileSelect(event: Event) {
