@@ -12,7 +12,7 @@ export class UploaderComponent {
 
 	loading: boolean = false;
 
-	imagesPath: string = '/build/statics/images/gallery/';
+	imagesPath: string = './build/statics/images/gallery/';
 
 	images: string[] = [
 		'slowpoke.png',
