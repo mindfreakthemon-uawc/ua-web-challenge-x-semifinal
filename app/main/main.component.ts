@@ -25,6 +25,6 @@ export class MainComponent implements AfterViewInit {
 		this.baseService.add(hat);
 		this.baseService.active = shirt;
 
-		this.layerService.upload('/build/statics/images/gallery/slowpoke.png');
+		this.layerService.upload('./build/statics/images/gallery/slowpoke.png');
 	}
 }

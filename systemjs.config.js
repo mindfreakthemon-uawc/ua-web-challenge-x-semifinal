@@ -36,6 +36,7 @@
 	});
 
 	System.config({
+		baseURL: './',
 		map: map,
 		meta: {
 			'google-maps': {

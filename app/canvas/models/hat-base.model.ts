@@ -6,7 +6,7 @@ export class HatBaseModel extends BaseModel {
 	}
 
 	get src(): string {
-		return '/build/statics/images/base/hat.png';
+		return './build/statics/images/base/hat.png';
 	}
 
 	get width(): number {

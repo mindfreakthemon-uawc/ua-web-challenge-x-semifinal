@@ -6,7 +6,7 @@ export class MugBaseModel extends BaseModel {
 	}
 
 	get src(): string {
-		return '/build/statics/images/base/mug.png';
+		return './build/statics/images/base/mug.png';
 	}
 
 	get width(): number {
