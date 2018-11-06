@@ -4,7 +4,7 @@ build:
   stage: build
   script:
     - npm install
-    - npx gulp compile:prod
+    - npx gulp bundle
   cache:
     paths:
       - node_modules/
