@@ -1,8 +1,5 @@
-build/app
-build/vendor
-build/templates
-build/styles
-build/css
+build
+index.html
 typings
 node_modules
 *.log
